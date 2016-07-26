@@ -21,7 +21,16 @@
     </script>
     <script>
       var slideshow = remark.create({
-        sourceUrl: 'slides.md'
+        sourceUrl: 'slides.md',
+        ratio: '{{getenv "RATIO" "4:3"}}',
+        navigation: {
+          scroll: false,
+          touch: true,
+          click: false
+        },
+        highlightStyle: '{{getenv "HIGHLIGHT_STYLE" "default"}}',
+        highlightSpans: true,
+        highlightLines: {{getenv "HIGHLIGHT_LINES" "false"}}
       })
     </script>
   </body>
