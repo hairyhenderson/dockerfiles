@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  ipfs:
+    restart: always
+    image: ipfs/go-ipfs
+    volumes:
+      - data:/data/ipfs
+      - staging:/export
+    ports:
+      - "4001:4001"
+      - "5001:5001"
+      - "127.0.0.1::8080"
+
+volumes:
+  data:
+    driver: local
+  staging:
+    driver: local  
