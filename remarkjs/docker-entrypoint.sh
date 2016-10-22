@@ -6,7 +6,6 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'nginx' ]; then
-  WEBROOT=/usr/share/nginx/html
   gomplate < /index.html.tmpl > $WEBROOT/index.html
   if [ -f /slides.md.tmpl ]; then
     gomplate < /slides.md.tmpl > $WEBROOT/slides.md

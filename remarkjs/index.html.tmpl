@@ -8,7 +8,7 @@
       @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
       @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
-      body { font-family: 'Droid Serif'; }
+      body { font-family: 'Droid Serif'; font-size: large }
       h1, h2, h3 {
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
@@ -17,7 +17,7 @@
     </style>
   </head>
   <body>
-    <script src="https://gateway.ipfs.io/ipfs/QmTc5kCXuuFyH9PH6QXwhmgx2wNMq3hNP8cooNCzGueW3j/remark.min.js"></script>
+    <script src="remark-{{getenv "REMARK_VER"}}.min.js"></script>
     <script>
       var slideshow = remark.create({
         sourceUrl: 'slides.md',
