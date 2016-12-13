@@ -7,10 +7,14 @@ fi
 
 if [ "$1" = 'nginx' ]; then
   gomplate < /index.html.tmpl > $WEBROOT/index.html
-  if [ -f /slides.md.tmpl ]; then
-    gomplate < /slides.md.tmpl > $WEBROOT/slides.md
+  if [ -z "$DEV_MODE" ]; then
+    if [ -f /slides.md.tmpl ]; then
+      gomplate < /slides.md.tmpl > $WEBROOT/slides.md
+    else
+      cp /slides.md $WEBROOT/slides.md
+    fi
   else
-    cp /slides.md $WEBROOT/slides.md
+    echo "-- Starting with dev mode enabled"
   fi
 fi
 
