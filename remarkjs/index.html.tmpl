@@ -20,7 +20,7 @@
     <script src="remark-{{getenv "REMARK_VER"}}.min.js"></script>
     <script>
       var slideshow = remark.create({
-        sourceUrl: 'slides.md',
+        sourceUrl: 'slides.md?' + Math.random(),
         ratio: '{{getenv "RATIO" "4:3"}}',
         navigation: {
           scroll: false,
