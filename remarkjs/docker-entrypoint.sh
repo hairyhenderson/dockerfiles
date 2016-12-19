@@ -13,6 +13,11 @@ if [ "$1" = 'nginx' ]; then
     else
       cp /slides.md $WEBROOT/slides.md
     fi
+
+    if [ -f /styles.css ]; then
+      cp /styles.css $WEBROOT/styles.css
+    fi
+
   else
     echo "-- Starting with dev mode enabled"
   fi

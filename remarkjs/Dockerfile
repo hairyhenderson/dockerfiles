@@ -13,6 +13,7 @@ RUN chmod a+rx /usr/local/bin/gomplate
 
 ADD https://gnab.github.io/remark/downloads/remark-${REMARK_VER}.min.js /usr/share/nginx/html/
 RUN chmod a+r /usr/share/nginx/html/remark-${REMARK_VER}.min.js
+COPY styles.css $WEBROOT
 COPY index.html.tmpl /
 COPY docker-entrypoint.sh /
 
