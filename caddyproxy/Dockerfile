@@ -21,3 +21,4 @@ COPY docker-entrypoint.sh /srv/docker-entrypoint.sh
 COPY Caddyfile.tmpl /srv/Caddyfile.tmpl
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["caddy"]
