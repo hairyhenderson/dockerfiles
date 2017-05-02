@@ -10,7 +10,7 @@ RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     unzip \
     bats \
-    jq \
+    jq=1.5* \
   && curl -L -o /tmp/vault.zip https://releases.hashicorp.com/vault/0.7.0/vault_0.7.0_linux_amd64.zip \
   && unzip -d /tmp /tmp/vault.zip \
   && mv /tmp/vault /bin/vault \
