@@ -1,7 +1,5 @@
-FROM alpine
+FROM alpine:3.6
 
-RUN apk update \
-  && apk add figlet \
-  && rm -rf /var/cache/apk/*
+RUN apk add --no-cache figlet
 
 ENTRYPOINT ["figlet"]
