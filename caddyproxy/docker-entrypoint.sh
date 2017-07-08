@@ -7,7 +7,7 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 if [ "$1" = 'caddy' ]; then
-	gomplate < /srv/Caddyfile.tmpl > /srv/Caddyfile
+	gomplate -f /srv/Caddyfile.tmpl -o /srv/Caddyfile
 fi
 
 exec "$@"
