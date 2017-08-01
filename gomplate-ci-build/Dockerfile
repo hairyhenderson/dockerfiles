@@ -15,5 +15,9 @@ RUN apt-get update \
   && unzip -d /tmp /tmp/vault.zip \
   && mv /tmp/vault /bin/vault \
   && rm -rf /tmp/vault.zip \
+  && curl -L -o /tmp/consul.zip https://releases.hashicorp.com/consul/0.9.0/consul_0.9.0_linux_amd64.zip \
+  && unzip -d /tmp /tmp/consul.zip \
+  && mv /tmp/consul /bin/consul \
+  && rm -rf /tmp/consul.zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
