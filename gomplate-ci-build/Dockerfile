@@ -1,4 +1,4 @@
-FROM golang:1.8
+FROM golang:1.9
 
 RUN mkdir -p /tmp/test-results
 RUN go get -u github.com/Masterminds/glide
