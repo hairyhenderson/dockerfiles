@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:8
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
@@ -9,5 +9,5 @@ RUN apt-get update \
   && rm -rf /tmp/vault.zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-RUN curl -o /bin/gomplate -sSL -f https://github.com/hairyhenderson/gomplate/releases/download/v1.9.1/gomplate_linux-amd64-slim \
+RUN curl -o /bin/gomplate -sSL -f https://github.com/hairyhenderson/gomplate/releases/download/v2.2.0/gomplate_linux-amd64-slim \
   && chmod 755 /bin/gomplate
