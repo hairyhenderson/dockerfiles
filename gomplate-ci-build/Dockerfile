@@ -10,13 +10,7 @@ RUN apt-get update \
     unzip \
     bats \
     jq \
-  && curl -L -o /tmp/vault.zip https://releases.hashicorp.com/vault/0.9.3/vault_0.9.3_linux_amd64.zip \
-  && unzip -d /tmp /tmp/vault.zip \
-  && mv /tmp/vault /bin/vault \
-  && rm -rf /tmp/vault.zip \
-  && curl -L -o /tmp/consul.zip https://releases.hashicorp.com/consul/1.0.3/consul_1.0.3_linux_amd64.zip \
-  && unzip -d /tmp /tmp/consul.zip \
-  && mv /tmp/consul /bin/consul \
-  && rm -rf /tmp/consul.zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
+COPY --from=vault:0.9.3 /bin/vault /bin/vault
+COPY --from=consul:1.0.6 /bin/consul /bin/consul
