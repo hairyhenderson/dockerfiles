@@ -11,11 +11,11 @@ RUN apt-get update \
     unzip \
     bats \
     jq=1.5* \
-  && curl -L -o /tmp/vault.zip https://releases.hashicorp.com/vault/0.7.3/vault_0.7.3_linux_amd64.zip \
+  && curl -L -o /tmp/vault.zip https://releases.hashicorp.com/vault/0.9.3/vault_0.9.3_linux_amd64.zip \
   && unzip -d /tmp /tmp/vault.zip \
   && mv /tmp/vault /bin/vault \
   && rm -rf /tmp/vault.zip \
-  && curl -L -o /tmp/consul.zip https://releases.hashicorp.com/consul/0.9.0/consul_0.9.0_linux_amd64.zip \
+  && curl -L -o /tmp/consul.zip https://releases.hashicorp.com/consul/1.0.3/consul_1.0.3_linux_amd64.zip \
   && unzip -d /tmp /tmp/consul.zip \
   && mv /tmp/consul /bin/consul \
   && rm -rf /tmp/consul.zip \
