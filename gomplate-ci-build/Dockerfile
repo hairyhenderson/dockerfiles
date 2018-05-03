@@ -12,5 +12,5 @@ RUN apt-get update \
     jq \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-COPY --from=vault:0.9.3 /bin/vault /bin/vault
-COPY --from=consul:1.0.6 /bin/consul /bin/consul
+COPY --from=vault:0.10.1 /bin/vault /bin/vault
+COPY --from=consul:1.0.7 /bin/consul /bin/consul
