@@ -14,3 +14,5 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=vault:0.10.1 /bin/vault /bin/vault
 COPY --from=consul:1.0.7 /bin/consul /bin/consul
+RUN curl -sSL -o /bin/cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+RUN chmod +x /bin/cc-test-reporter
