@@ -2,7 +2,7 @@ FROM vault:0.11.1 AS vault
 
 FROM consul:1.2.3 AS consul
 
-FROM golang:1.11.0
+FROM golang:1.11.1
 
 RUN mkdir -p /tmp/test-results
 RUN go get -u github.com/Masterminds/glide
