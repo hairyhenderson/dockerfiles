@@ -1,4 +1,4 @@
-FROM golang:1.10 AS build
+FROM golang:1.11 AS build
 
 RUN CGO_ENABLED=0 go get github.com/dgrijalva/jwt-go/cmd/jwt
 
