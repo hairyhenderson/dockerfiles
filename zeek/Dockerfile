@@ -58,13 +58,12 @@ RUN apt-get update \
       python2.7-minimal \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-ARG VER=2.6.1
+RUN ln -s /usr/bin/python2.7 /usr/bin/python
 
 COPY --from=builder /usr/local/zeek /usr/local/zeek
 COPY --from=geogetter /usr/share/GeoIP/* /usr/share/GeoIP/
 COPY ./zeek_profile.sh /etc/profile.d/zeek.sh
 
-ENV PATH /usr/local/zeek/bin/:$PATH
+ENV PATH=/usr/local/zeek/bin/:$PATH
 
-CMD /bin/bash -l
+CMD ["/bin/bash", "-l"]

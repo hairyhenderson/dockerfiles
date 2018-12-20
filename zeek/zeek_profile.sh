@@ -1,5 +1,3 @@
-export PATH=$PATH:/zeek/bin
-
 zeek-grep() {
     grep -E "(^#)|$1" $2;
 }
