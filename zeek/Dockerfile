@@ -24,8 +24,8 @@ WORKDIR /usr/src/
 
 ARG VER=2.6.1
 
-RUN wget -c http://www.zeek.org/downloads/bro-${VER}.tar.gz
-RUN tar xvzf bro-${VER}.tar.gz
+RUN wget -q http://www.zeek.org/downloads/bro-${VER}.tar.gz
+RUN tar zxf bro-${VER}.tar.gz
 WORKDIR /usr/src/bro-${VER}
 RUN ./configure --prefix=/usr/local/zeek
 RUN make -j4 install
@@ -40,10 +40,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
   ca-certificates 
 
 RUN mkdir -p /usr/share/GeoIP/
-RUN wget -N http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
-RUN tar xvzf GeoLite2-City.tar.gz
-RUN wget -N http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz
-RUN tar xvzf GeoLite2-ASN.tar.gz
+RUN wget -q http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+RUN tar zxf GeoLite2-City.tar.gz
+RUN wget -q http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz
+RUN tar zxf GeoLite2-ASN.tar.gz
 RUN mv */*.mmdb /usr/share/GeoIP
 
 # Make final image
