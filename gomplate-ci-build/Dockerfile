@@ -11,7 +11,7 @@ RUN tar zx -C . --strip-components=1 -f /tmp/gometalinter.tar.gz
 FROM golang:1.12.4 AS golangci-lint
 
 WORKDIR /golangci-lint/
-RUN wget -O /tmp/golangci-lint.tar.gz https://github.com/golangci/golangci-lint/releases/download/v1.12.5/golangci-lint-1.12.5-linux-amd64.tar.gz
+RUN wget -O /tmp/golangci-lint.tar.gz https://github.com/golangci/golangci-lint/releases/download/v1.16.0/golangci-lint-1.16.0-linux-amd64.tar.gz
 RUN tar zx -C . --strip-components=1 -f /tmp/golangci-lint.tar.gz
 
 FROM golang:1.12.4 AS cc-test-reporter
