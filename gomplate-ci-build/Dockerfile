@@ -1,5 +1,5 @@
 FROM vault:1.1.2 AS vault
-FROM consul:1.4.4 AS consul
+FROM consul:1.5.0 AS consul
 FROM docker:18.09 AS docker
 
 FROM golang:1.12.4 AS gometalinter
