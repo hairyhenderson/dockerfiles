@@ -57,6 +57,14 @@ jobs:
       - setup_remote_docker:
           version: 18.06.0-ce
       - run: docker build -f nodejs-ci-build/Dockerfile nodejs-ci-build/
+  image-raspbian:
+    docker:
+      - image: qlik/tiny-build
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - run: docker build -f raspbian/Dockerfile raspbian/
   image-remarkjs:
     docker:
       - image: qlik/tiny-build
@@ -117,6 +125,7 @@ workflows:
       - image-jwt
       - image-man
       - image-nodejs-ci-build
+      - image-raspbian
       - image-remarkjs
       - image-sed
       - image-socat
