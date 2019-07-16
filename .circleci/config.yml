@@ -1,123 +1,312 @@
 version: 2.1
 
 jobs:
+  image-buildx:
+    docker:
+      - image: hairyhenderson/docker-buildx
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f buildx/Dockerfile \
+            --progress plain \
+            buildx/
+      - run: |
+          docker buildx ls
   image-caddyproxy:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f caddyproxy/Dockerfile caddyproxy/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f caddyproxy/Dockerfile \
+            --progress plain \
+            caddyproxy/
+      - run: |
+          docker buildx ls
   image-figlet:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f figlet/Dockerfile figlet/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f figlet/Dockerfile \
+            --progress plain \
+            figlet/
+      - run: |
+          docker buildx ls
   image-github_changelog_generator:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f github_changelog_generator/Dockerfile github_changelog_generator/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f github_changelog_generator/Dockerfile \
+            --progress plain \
+            github_changelog_generator/
+      - run: |
+          docker buildx ls
   image-gomplate-ci-build:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f gomplate-ci-build/Dockerfile gomplate-ci-build/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f gomplate-ci-build/Dockerfile \
+            --progress plain \
+            gomplate-ci-build/
+      - run: |
+          docker buildx ls
   image-jwt:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f jwt/Dockerfile jwt/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f jwt/Dockerfile \
+            --progress plain \
+            jwt/
+      - run: |
+          docker buildx ls
   image-man:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f man/Dockerfile man/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f man/Dockerfile \
+            --progress plain \
+            man/
+      - run: |
+          docker buildx ls
   image-nodejs-ci-build:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f nodejs-ci-build/Dockerfile nodejs-ci-build/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f nodejs-ci-build/Dockerfile \
+            --progress plain \
+            nodejs-ci-build/
+      - run: |
+          docker buildx ls
   image-raspbian:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f raspbian/Dockerfile raspbian/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f raspbian/Dockerfile \
+            --progress plain \
+            raspbian/
+      - run: |
+          docker buildx ls
   image-remarkjs:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f remarkjs/Dockerfile remarkjs/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f remarkjs/Dockerfile \
+            --progress plain \
+            remarkjs/
+      - run: |
+          docker buildx ls
   image-sed:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f sed/Dockerfile sed/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f sed/Dockerfile \
+            --progress plain \
+            sed/
+      - run: |
+          docker buildx ls
   image-socat:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f socat/Dockerfile socat/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f socat/Dockerfile \
+            --progress plain \
+            socat/
+      - run: |
+          docker buildx ls
   image-ssh:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f ssh/Dockerfile ssh/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f ssh/Dockerfile \
+            --progress plain \
+            ssh/
+      - run: |
+          docker buildx ls
   image-trx:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f trx/Dockerfile trx/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f trx/Dockerfile \
+            --progress plain \
+            trx/
+      - run: |
+          docker buildx ls
   image-upx:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f upx/Dockerfile upx/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f upx/Dockerfile \
+            --progress plain \
+            upx/
+      - run: |
+          docker buildx ls
 
 workflows:
   version: 2
   build_docker_images:
     jobs:
+      - image-buildx
       - image-caddyproxy
       - image-figlet
       - image-github_changelog_generator

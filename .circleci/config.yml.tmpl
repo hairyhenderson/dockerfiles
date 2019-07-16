@@ -4,12 +4,24 @@ jobs:
 {{- range .dir }}{{ if and (and (file.IsDir .) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
   image-{{ . }}:
     docker:
-      - image: qlik/tiny-build
+      - image: hairyhenderson/docker-buildx
     steps:
       - checkout
       - setup_remote_docker:
-          version: 18.06.0-ce
-      - run: docker build -f {{ . }}/Dockerfile {{ . }}/
+          version: 18.09.3
+      - run: docker version
+      - run: |
+          docker buildx create \
+            --name builder \
+            --use \
+            $DOCKER_HOST
+      - run: |
+          docker buildx build \
+            -f {{ . }}/Dockerfile \
+            --progress plain \
+            {{ . }}/
+      - run: |
+          docker buildx ls
 {{- end }}{{ end }}
 
 workflows:
