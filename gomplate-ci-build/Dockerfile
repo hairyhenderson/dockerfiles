@@ -3,18 +3,18 @@ FROM consul:1.5.3 AS consul
 FROM docker:19.03 AS docker
 FROM golangci/golangci-lint:v1.17.1 AS golangci-lint
 
-FROM golang:1.12.8 AS cc-test-reporter
+FROM golang:1.12.9 AS cc-test-reporter
 
 RUN curl -sSL -o /bin/cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
 RUN chmod +x /bin/cc-test-reporter
 
-FROM golang:1.12.8 AS dep
+FROM golang:1.12.9 AS dep
 RUN go get -u github.com/golang/dep/cmd/dep
 
-FROM golang:1.12.8 AS go-junit-report
+FROM golang:1.12.9 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.12.8 AS final
+FROM golang:1.12.9 AS final
 
 RUN mkdir -p /tmp/test-results
 
