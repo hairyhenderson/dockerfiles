@@ -1,0 +1,20 @@
+name: Generate Workflows
+on: push
+
+jobs:
+  check-workflows:
+    name: Check workflows
+    runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    steps:
+      - uses: actions/checkout@master
+      - name: (re-)generate workflow(s)
+        run: make .github/workflows/build.yml
+      - name: make sure the workflows are up-to-date
+        run: |
+          [ "`git status --porcelain`" = '' ]
+      # Note: this doesn't work, because workflows aren't allowed to be modified by integrations
+      # - uses: mikeal/publish-to-github-action@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
