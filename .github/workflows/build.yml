@@ -1,0 +1,214 @@
+name: Docker Build
+on: push
+
+jobs:
+  docker-build-caddyproxy:
+    name: docker build caddyproxy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make caddyproxy/image.iid
+    - name: tag
+      run: docker tag $(< caddyproxy/image.iid) docker.pkg.github.com/${{ github.repository }}/caddyproxy
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/caddyproxy
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-dockerfiles-builder:
+    name: docker build dockerfiles-builder
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make dockerfiles-builder/image.iid
+    - name: tag
+      run: docker tag $(< dockerfiles-builder/image.iid) docker.pkg.github.com/${{ github.repository }}/dockerfiles-builder
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/dockerfiles-builder
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-figlet:
+    name: docker build figlet
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make figlet/image.iid
+    - name: tag
+      run: docker tag $(< figlet/image.iid) docker.pkg.github.com/${{ github.repository }}/figlet
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/figlet
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-github_changelog_generator:
+    name: docker build github_changelog_generator
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make github_changelog_generator/image.iid
+    - name: tag
+      run: docker tag $(< github_changelog_generator/image.iid) docker.pkg.github.com/${{ github.repository }}/github_changelog_generator
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/github_changelog_generator
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-gomplate-ci-build:
+    name: docker build gomplate-ci-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make gomplate-ci-build/image.iid
+    - name: tag
+      run: docker tag $(< gomplate-ci-build/image.iid) docker.pkg.github.com/${{ github.repository }}/gomplate-ci-build
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/gomplate-ci-build
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-jwt:
+    name: docker build jwt
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make jwt/image.iid
+    - name: tag
+      run: docker tag $(< jwt/image.iid) docker.pkg.github.com/${{ github.repository }}/jwt
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/jwt
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-man:
+    name: docker build man
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make man/image.iid
+    - name: tag
+      run: docker tag $(< man/image.iid) docker.pkg.github.com/${{ github.repository }}/man
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/man
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-nodejs-ci-build:
+    name: docker build nodejs-ci-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make nodejs-ci-build/image.iid
+    - name: tag
+      run: docker tag $(< nodejs-ci-build/image.iid) docker.pkg.github.com/${{ github.repository }}/nodejs-ci-build
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/nodejs-ci-build
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-raspbian:
+    name: docker build raspbian
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make raspbian/image.iid
+    - name: tag
+      run: docker tag $(< raspbian/image.iid) docker.pkg.github.com/${{ github.repository }}/raspbian
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/raspbian
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-remarkjs:
+    name: docker build remarkjs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make remarkjs/image.iid
+    - name: tag
+      run: docker tag $(< remarkjs/image.iid) docker.pkg.github.com/${{ github.repository }}/remarkjs
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/remarkjs
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-sed:
+    name: docker build sed
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make sed/image.iid
+    - name: tag
+      run: docker tag $(< sed/image.iid) docker.pkg.github.com/${{ github.repository }}/sed
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/sed
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-socat:
+    name: docker build socat
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make socat/image.iid
+    - name: tag
+      run: docker tag $(< socat/image.iid) docker.pkg.github.com/${{ github.repository }}/socat
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/socat
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-ssh:
+    name: docker build ssh
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make ssh/image.iid
+    - name: tag
+      run: docker tag $(< ssh/image.iid) docker.pkg.github.com/${{ github.repository }}/ssh
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/ssh
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-trx:
+    name: docker build trx
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make trx/image.iid
+    - name: tag
+      run: docker tag $(< trx/image.iid) docker.pkg.github.com/${{ github.repository }}/trx
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/trx
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+  docker-build-upx:
+    name: docker build upx
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      run: make upx/image.iid
+    - name: tag
+      run: docker tag $(< upx/image.iid) docker.pkg.github.com/${{ github.repository }}/upx
+    - name: login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - name: docker push
+      run: docker push docker.pkg.github.com/${{ github.repository }}/upx
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'

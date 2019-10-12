@@ -9,6 +9,14 @@ jobs:
       - setup_remote_docker:
           version: 18.06.0-ce
       - run: docker build -f caddyproxy/Dockerfile caddyproxy/
+  image-dockerfiles-builder:
+    docker:
+      - image: qlik/tiny-build
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.0-ce
+      - run: docker build -f dockerfiles-builder/Dockerfile dockerfiles-builder/
   image-figlet:
     docker:
       - image: qlik/tiny-build
@@ -119,6 +127,7 @@ workflows:
   build_docker_images:
     jobs:
       - image-caddyproxy
+      - image-dockerfiles-builder
       - image-figlet
       - image-github_changelog_generator
       - image-gomplate-ci-build

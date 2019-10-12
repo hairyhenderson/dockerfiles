@@ -13,6 +13,9 @@ clean:
 .circleci/config.yml: .circleci/config.yml.tmpl */.ignore
 	@gomplate -c dir=./ -f $< -o $@
 
+.github/workflows/build.yml: .github/workflows/build.yml.tmpl */.ignore */Dockerfile
+	@gomplate -c dir=./ -f $< -o $@
+
 .PHONY: clean
 .DELETE_ON_ERROR:
 .SECONDARY:
