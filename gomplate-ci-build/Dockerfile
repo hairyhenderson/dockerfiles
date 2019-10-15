@@ -1,7 +1,7 @@
 FROM vault:1.2.3 AS vault
 FROM consul:1.6.1 AS consul
 FROM docker:19.03 AS docker
-FROM golangci/golangci-lint:v1.20.0 AS golangci-lint
+FROM golangci/golangci-lint:v1.21.0 AS golangci-lint
 
 FROM golang:1.13.1 AS cc-test-reporter
 
