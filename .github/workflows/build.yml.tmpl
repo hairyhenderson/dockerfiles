@@ -6,8 +6,34 @@ jobs:
   docker-build-{{ . }}:
     name: docker build {{ . }}
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
+    {{- if file.Exists (filepath.Join "library" .) }}
+    - name: build
+      run: bashbrew build {{ . }}
+    - name: tag
+      run: bashbrew tag --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+    - name: login
+      run: |
+        echo {{"${{ secrets.GITHUB_TOKEN }}"}} | docker login docker.pkg.github.com --username {{ "${{ github.actor }}" }} --password-stdin
+        echo {{"${{ secrets.DOCKERHUB_TOKEN }}"}} | docker login --username {{ "${{ github.actor }}" }} --password-stdin
+      if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: push
+      run: |
+        bashbrew push --dry-run {{ . }}
+        bashbrew push --dry-run --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: push
+      run: |
+        bashbrew push {{ . }}
+        bashbrew push --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    {{- else }}
     - name: build
       run: make {{ . }}/image.iid
     - name: tag
@@ -17,4 +43,5 @@ jobs:
     - name: docker push
       run: docker push docker.pkg.github.com/{{ "${{ github.repository }}" }}/{{ . }}
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    {{- end }}
 {{- end }}{{ end }}

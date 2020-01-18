@@ -5,6 +5,11 @@ jobs:
   docker-build-caddyproxy:
     name: docker build caddyproxy
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -19,6 +24,11 @@ jobs:
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -33,6 +43,11 @@ jobs:
   docker-build-figlet:
     name: docker build figlet
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -47,6 +62,11 @@ jobs:
   docker-build-github_changelog_generator:
     name: docker build github_changelog_generator
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -61,6 +81,11 @@ jobs:
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -75,6 +100,11 @@ jobs:
   docker-build-jwt:
     name: docker build jwt
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -89,6 +119,11 @@ jobs:
   docker-build-man:
     name: docker build man
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -103,6 +138,11 @@ jobs:
   docker-build-nodejs-ci-build:
     name: docker build nodejs-ci-build
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -117,6 +157,11 @@ jobs:
   docker-build-raspbian:
     name: docker build raspbian
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -131,6 +176,11 @@ jobs:
   docker-build-remarkjs:
     name: docker build remarkjs
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -145,6 +195,11 @@ jobs:
   docker-build-sed:
     name: docker build sed
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -159,6 +214,11 @@ jobs:
   docker-build-socat:
     name: docker build socat
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -173,6 +233,11 @@ jobs:
   docker-build-ssh:
     name: docker build ssh
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -187,6 +252,11 @@ jobs:
   docker-build-trx:
     name: docker build trx
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
@@ -201,14 +271,29 @@ jobs:
   docker-build-upx:
     name: docker build upx
     runs-on: ubuntu-latest
+    container:
+      image: hairyhenderson/dockerfiles-builder:latest
+    env:
+      BASHBREW_LIBRARY: ./library
+      BASHBREW_NAMESPACE: hairyhenderson
     steps:
     - uses: actions/checkout@master
     - name: build
-      run: make upx/image.iid
+      run: bashbrew build upx
     - name: tag
-      run: docker tag $(< upx/image.iid) docker.pkg.github.com/${{ github.repository }}/upx
+      run: bashbrew tag --target-namespace docker.pkg.github.com/${{ github.repository }} upx
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
-    - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/upx
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+        echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ github.actor }} --password-stdin
+      if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: push
+      run: |
+        bashbrew push --dry-run upx
+        bashbrew push --dry-run --target-namespace docker.pkg.github.com/${{ github.repository }} upx
+      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: push
+      run: |
+        bashbrew push upx
+        bashbrew push --target-namespace docker.pkg.github.com/${{ github.repository }} upx
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'

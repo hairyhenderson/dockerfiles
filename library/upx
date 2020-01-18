@@ -1,0 +1,8 @@
+Maintainers: Dave Henderson (@hairyhenderson)
+
+Tags: 3.94, latest
+GitRepo: https://github.com/hairyhenderson/dockerfiles.git
+Directory: upx
+# GitFetch: refs/tags/upx-3.94
+GitCommit: ecf7a185c37182caea009151c010fc3f0c915427
+Architectures: amd64
