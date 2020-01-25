@@ -22,7 +22,7 @@ jobs:
       run: |
         echo {{"${{ secrets.GITHUB_TOKEN }}"}} | docker login docker.pkg.github.com --username {{ "${{ github.actor }}" }} --password-stdin
         echo {{"${{ secrets.DOCKERHUB_TOKEN }}"}} | docker login --username {{ "${{ github.actor }}" }} --password-stdin
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
     - name: push
       run: |
         bashbrew push --dry-run {{ . }}
