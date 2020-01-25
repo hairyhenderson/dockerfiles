@@ -286,12 +286,12 @@ jobs:
       run: |
         echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
         echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ github.actor }} --password-stdin
-      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push --dry-run upx
         bashbrew push --dry-run --target-namespace docker.pkg.github.com/${{ github.repository }} upx
-      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push upx
