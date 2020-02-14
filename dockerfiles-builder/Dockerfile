@@ -1,6 +1,6 @@
 FROM hairyhenderson/gomplate:v3.6.0-slim AS gomplate
 FROM hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker:19.03.5 AS docker
+FROM docker:19.03.6 AS docker
 
 FROM alpine:3.11 AS runtime
 
