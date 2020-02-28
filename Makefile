@@ -16,6 +16,9 @@ clean:
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.ignore */Dockerfile
 	@gomplate -c dir=./ -f $< -o $@
 
+.dependabot/config.yml: .dependabot/config.yml.tmpl */.ignore */Dockerfile
+	@gomplate -c dir=./ -f $< -o $@
+
 .PHONY: clean
 .DELETE_ON_ERROR:
 .SECONDARY:

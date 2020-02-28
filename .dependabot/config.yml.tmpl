@@ -1,0 +1,7 @@
+version: 1
+update_configs:
+{{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
+  - package_manager: "docker"
+    directory: "/{{ . }}"
+    update_schedule: "daily"
+{{- end }}{{ end }}
