@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11.3
 
 # install 3.94 until 3.96 is released. 3.95 has a bug!
 RUN apk add --no-cache upx=3.94-r0
