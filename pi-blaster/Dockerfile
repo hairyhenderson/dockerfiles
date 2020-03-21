@@ -1,9 +1,14 @@
 FROM alpine:3.11.3 as builder
 
-RUN apk add --no-cache build-base autoconf automake linux-headers
+RUN apk add --no-cache \
+    build-base \
+    autoconf \
+    automake \
+    linux-headers \
+    git
 
 WORKDIR /pi-blaster
-RUN git clone git@github.com:sarfata/pi-blaster.git .
+RUN git clone https://github.com/sarfata/pi-blaster.git .
 
 RUN ./autogen.sh
 RUN ./configure
