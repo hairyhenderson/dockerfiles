@@ -1,7 +1,12 @@
 FROM vault:1.4.0 AS vault
 FROM consul:1.7.2 AS consul
-FROM docker:19.03 AS docker
+FROM docker:19.03.8 AS docker
 FROM golangci/golangci-lint:v1.23.8 AS golangci-lint
+
+FROM alpine:3.11.5 AS buildx-plugin
+
+RUN wget -O /docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
+RUN chmod 755 /docker-buildx
 
 FROM golang:1.14.2 AS cc-test-reporter
 
@@ -33,3 +38,4 @@ COPY --from=docker /usr/local/bin/docker /bin/docker
 COPY --from=cc-test-reporter /bin/cc-test-reporter /bin/cc-test-reporter
 COPY --from=dep /go/bin/dep /bin/dep
 COPY --from=go-junit-report /go/bin/go-junit-report /bin/go-junit-report
+COPY --from=buildx-plugin /docker-buildx /usr/lib/docker/cli-plugins/docker-buildx
