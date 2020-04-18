@@ -3,9 +3,9 @@ FROM consul:1.7.2 AS consul
 FROM docker:19.03.8 AS docker
 FROM golangci/golangci-lint:v1.23.8 AS golangci-lint
 
-FROM alpine:3.11.5 AS buildx-plugin
+FROM golang:1.14.2 AS buildx-plugin
 
-RUN wget -O /docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
+RUN curl -sSL -o /docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
 RUN chmod 755 /docker-buildx
 
 FROM golang:1.14.2 AS cc-test-reporter
@@ -18,6 +18,15 @@ RUN go get -u github.com/golang/dep/cmd/dep
 
 FROM golang:1.14.2 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
+
+FROM golang:1.14.2 AS reg
+
+ENV REG_SHA256=ade837fc5224acd8c34732bf54a94f579b47851cc6a7fd5899a98386b782e228
+ENV REG_VERSION=v0.16.1
+
+RUN curl -sSL -o /bin/reg https://github.com/genuinetools/reg/releases/download/${REG_VERSION}/reg-linux-amd64
+RUN echo "${REG_SHA256}  /bin/reg" | sha256sum -c -
+RUN chmod a+x "/bin/reg"
 
 FROM golang:1.14.2 AS final
 
@@ -39,3 +48,4 @@ COPY --from=cc-test-reporter /bin/cc-test-reporter /bin/cc-test-reporter
 COPY --from=dep /go/bin/dep /bin/dep
 COPY --from=go-junit-report /go/bin/go-junit-report /bin/go-junit-report
 COPY --from=buildx-plugin /docker-buildx /usr/lib/docker/cli-plugins/docker-buildx
+COPY --from=reg /bin/reg /bin/reg
