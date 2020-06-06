@@ -1,6 +1,6 @@
 FROM vault:1.4.2 AS vault
 FROM consul:1.7.3 AS consul
-FROM docker:19.03.9 AS docker
+FROM docker:19.03.11 AS docker
 FROM golangci/golangci-lint:v1.27.0 AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM hairyhenderson/buildx:latest AS buildx-plugin
@@ -10,7 +10,7 @@ FROM hairyhenderson/buildx:latest AS buildx-plugin
 # RUN curl -sSL -o /docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
 # RUN chmod 755 /docker-buildx
 
-FROM alpine:3.11.6 AS cc-test-reporter
+FROM alpine:3.12.0 AS cc-test-reporter
 
 RUN set -eux; \
   apkArch="$(apk --print-arch)"; \
