@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.11
 
 ENV PAGER /usr/bin/less
 RUN apk add --no-cache man man-pages
