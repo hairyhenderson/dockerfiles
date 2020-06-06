@@ -1,8 +1,8 @@
-FROM alpine:3.11 AS get-caddy
+FROM alpine:3.12.0 AS get-caddy
 
 ADD https://caddyserver.com/download/linux/amd64?plugins=http.prometheus&license=personal&telemetry=on /caddy.tar.gz
 
-FROM alpine:3.11 AS caddy
+FROM alpine:3.12.0 AS caddy
 
 RUN apk add --no-cache tar 
 
@@ -12,7 +12,7 @@ RUN tar --no-same-owner -C /usr/bin/ -zxf /caddy.tar.gz caddy
 RUN chmod 0755 /usr/bin/caddy
 RUN caddy -version
 
-FROM alpine:3.11
+FROM alpine:3.12.0
 
 LABEL maintainer "dhenderson@gmail.com"
 
