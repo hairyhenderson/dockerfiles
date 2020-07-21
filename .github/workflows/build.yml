@@ -2,25 +2,6 @@ name: Docker Build
 on: push
 
 jobs:
-  docker-build-caddyproxy:
-    name: docker build caddyproxy
-    runs-on: ubuntu-latest
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
-    env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
-    steps:
-    - uses: actions/checkout@master
-    - name: build
-      run: make caddyproxy/image.iid
-    - name: tag
-      run: docker tag $(< caddyproxy/image.iid) docker.pkg.github.com/${{ github.repository }}/caddyproxy
-    - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
-    - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/caddyproxy
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
     runs-on: ubuntu-latest
