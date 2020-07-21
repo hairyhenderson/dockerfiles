@@ -1,8 +1,0 @@
-{{.Env.FQDN}}
-tls {{.Env.TLS_CONFIG}}
-
-gzip
-
-prometheus 0.0.0.0:9180
-
-proxy / {{.Env.PROXY_DEST}}
