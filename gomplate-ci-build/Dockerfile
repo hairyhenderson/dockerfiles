@@ -25,10 +25,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.15.0 AS dep
+FROM golang:1.15.1 AS dep
 RUN go get -u github.com/golang/dep/cmd/dep
 
-FROM golang:1.15.0 AS go-junit-report
+FROM golang:1.15.1 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
 # FROM golang:1.14.2 AS reg
@@ -40,7 +40,7 @@ RUN go get -u github.com/jstemmer/go-junit-report
 # RUN echo "${REG_SHA256}  /bin/reg" | sha256sum -c -
 # RUN chmod a+x "/bin/reg"
 
-FROM golang:1.15.0 AS final
+FROM golang:1.15.1 AS final
 
 RUN mkdir -p /tmp/test-results
 
