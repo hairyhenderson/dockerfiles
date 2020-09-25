@@ -10,14 +10,13 @@ all: gomplate-ci-build/image.iid
 clean:
 	-@rm */image.iid
 
-.circleci/config.yml: .circleci/config.yml.tmpl */.ignore
-	@gomplate -c dir=./ -f $< -o $@
-
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.ignore */Dockerfile
 	@gomplate -c dir=./ -f $< -o $@
 
-.dependabot/config.yml: .dependabot/config.yml.tmpl */.ignore */Dockerfile
+.github/dependabot.yml: .github/dependabot.yml.tmpl */.ignore */Dockerfile
 	@gomplate -c dir=./ -f $< -o $@
+
+gen: .github/workflows/build.yml .github/dependabot.yml
 
 .PHONY: clean
 .DELETE_ON_ERROR:

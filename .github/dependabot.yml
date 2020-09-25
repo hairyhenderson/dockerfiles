@@ -1,28 +1,56 @@
 version: 2
 updates:
 - package-ecosystem: docker
-  directory: "/ssh"
+  directory: "/dockerfiles-builder"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/trx"
+  directory: "/figlet"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/upx"
+  directory: "/github_changelog_generator"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/socat"
+  directory: "/gomplate-ci-build"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
+  directory: "/jwt"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
+  directory: "/man"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
+  directory: "/nodejs-ci-build"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
+  directory: "/raspbian"
   schedule:
     interval: daily
     time: "02:00"
@@ -43,63 +71,28 @@ updates:
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/raspbian"
+  directory: "/socat"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/nodejs-ci-build"
+  directory: "/ssh"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/man"
+  directory: "/trx"
   schedule:
     interval: daily
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/jwt"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/gomplate-ci-build"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/github_changelog_generator"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/figlet"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/dockerfiles-builder"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/caddyproxy"
+  directory: "/upx"
   schedule:
     interval: daily
     time: "02:00"

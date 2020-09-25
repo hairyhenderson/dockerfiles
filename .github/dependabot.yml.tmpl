@@ -1,7 +1,11 @@
-version: 1
-update_configs:
+version: 2
+updates:
 {{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
-  - package_manager: "docker"
-    directory: "/{{ . }}"
-    update_schedule: "daily"
+- package-ecosystem: docker
+  directory: "/{{ . }}"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
 {{- end }}{{ end }}
