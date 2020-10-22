@@ -10,7 +10,7 @@ FROM hairyhenderson/buildx:latest AS buildx-plugin
 # RUN curl -sSL -o /docker-buildx https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
 # RUN chmod 755 /docker-buildx
 
-FROM alpine:3.12.0 AS cc-test-reporter
+FROM alpine:3.12.1 AS cc-test-reporter
 
 RUN set -eux; \
   apkArch="$(apk --print-arch)"; \
