@@ -1,3 +1,4 @@
+
 name: Docker Build
 on: push
 
@@ -15,11 +16,11 @@ jobs:
     - name: build
       run: make dockerfiles-builder/image.iid
     - name: tag
-      run: docker tag $(< dockerfiles-builder/image.iid) docker.pkg.github.com/${{ github.repository }}/dockerfiles-builder
+      run: docker tag $(< dockerfiles-builder/image.iid) ghcr.io/dockerfiles-builder
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/dockerfiles-builder
+      run: docker push ghcr.io/dockerfiles-builder
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-figlet:
     name: docker build figlet
@@ -34,11 +35,11 @@ jobs:
     - name: build
       run: make figlet/image.iid
     - name: tag
-      run: docker tag $(< figlet/image.iid) docker.pkg.github.com/${{ github.repository }}/figlet
+      run: docker tag $(< figlet/image.iid) ghcr.io/figlet
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/figlet
+      run: docker push ghcr.io/figlet
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-github_changelog_generator:
     name: docker build github_changelog_generator
@@ -53,11 +54,11 @@ jobs:
     - name: build
       run: make github_changelog_generator/image.iid
     - name: tag
-      run: docker tag $(< github_changelog_generator/image.iid) docker.pkg.github.com/${{ github.repository }}/github_changelog_generator
+      run: docker tag $(< github_changelog_generator/image.iid) ghcr.io/github_changelog_generator
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/github_changelog_generator
+      run: docker push ghcr.io/github_changelog_generator
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
@@ -72,11 +73,11 @@ jobs:
     - name: build
       run: make gomplate-ci-build/image.iid
     - name: tag
-      run: docker tag $(< gomplate-ci-build/image.iid) docker.pkg.github.com/${{ github.repository }}/gomplate-ci-build
+      run: docker tag $(< gomplate-ci-build/image.iid) ghcr.io/gomplate-ci-build
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/gomplate-ci-build
+      run: docker push ghcr.io/gomplate-ci-build
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-jwt:
     name: docker build jwt
@@ -91,11 +92,11 @@ jobs:
     - name: build
       run: make jwt/image.iid
     - name: tag
-      run: docker tag $(< jwt/image.iid) docker.pkg.github.com/${{ github.repository }}/jwt
+      run: docker tag $(< jwt/image.iid) ghcr.io/jwt
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/jwt
+      run: docker push ghcr.io/jwt
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-man:
     name: docker build man
@@ -110,11 +111,11 @@ jobs:
     - name: build
       run: make man/image.iid
     - name: tag
-      run: docker tag $(< man/image.iid) docker.pkg.github.com/${{ github.repository }}/man
+      run: docker tag $(< man/image.iid) ghcr.io/man
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/man
+      run: docker push ghcr.io/man
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-nodejs-ci-build:
     name: docker build nodejs-ci-build
@@ -129,11 +130,11 @@ jobs:
     - name: build
       run: make nodejs-ci-build/image.iid
     - name: tag
-      run: docker tag $(< nodejs-ci-build/image.iid) docker.pkg.github.com/${{ github.repository }}/nodejs-ci-build
+      run: docker tag $(< nodejs-ci-build/image.iid) ghcr.io/nodejs-ci-build
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/nodejs-ci-build
+      run: docker push ghcr.io/nodejs-ci-build
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-raspbian:
     name: docker build raspbian
@@ -148,11 +149,11 @@ jobs:
     - name: build
       run: make raspbian/image.iid
     - name: tag
-      run: docker tag $(< raspbian/image.iid) docker.pkg.github.com/${{ github.repository }}/raspbian
+      run: docker tag $(< raspbian/image.iid) ghcr.io/raspbian
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/raspbian
+      run: docker push ghcr.io/raspbian
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-remarkjs:
     name: docker build remarkjs
@@ -167,11 +168,11 @@ jobs:
     - name: build
       run: make remarkjs/image.iid
     - name: tag
-      run: docker tag $(< remarkjs/image.iid) docker.pkg.github.com/${{ github.repository }}/remarkjs
+      run: docker tag $(< remarkjs/image.iid) ghcr.io/remarkjs
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/remarkjs
+      run: docker push ghcr.io/remarkjs
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-sed:
     name: docker build sed
@@ -186,11 +187,11 @@ jobs:
     - name: build
       run: make sed/image.iid
     - name: tag
-      run: docker tag $(< sed/image.iid) docker.pkg.github.com/${{ github.repository }}/sed
+      run: docker tag $(< sed/image.iid) ghcr.io/sed
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/sed
+      run: docker push ghcr.io/sed
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-socat:
     name: docker build socat
@@ -205,11 +206,11 @@ jobs:
     - name: build
       run: make socat/image.iid
     - name: tag
-      run: docker tag $(< socat/image.iid) docker.pkg.github.com/${{ github.repository }}/socat
+      run: docker tag $(< socat/image.iid) ghcr.io/socat
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/socat
+      run: docker push ghcr.io/socat
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-ssh:
     name: docker build ssh
@@ -224,11 +225,11 @@ jobs:
     - name: build
       run: make ssh/image.iid
     - name: tag
-      run: docker tag $(< ssh/image.iid) docker.pkg.github.com/${{ github.repository }}/ssh
+      run: docker tag $(< ssh/image.iid) ghcr.io/ssh
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/ssh
+      run: docker push ghcr.io/ssh
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-trx:
     name: docker build trx
@@ -243,11 +244,11 @@ jobs:
     - name: build
       run: make trx/image.iid
     - name: tag
-      run: docker tag $(< trx/image.iid) docker.pkg.github.com/${{ github.repository }}/trx
+      run: docker tag $(< trx/image.iid) ghcr.io/trx
     - name: login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/${{ github.repository }}/trx
+      run: docker push ghcr.io/trx
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-upx:
     name: docker build upx
@@ -262,19 +263,19 @@ jobs:
     - name: build
       run: bashbrew build upx
     - name: tag
-      run: bashbrew tag --target-namespace docker.pkg.github.com/${{ github.repository }} upx
+      run: bashbrew tag --target-namespace ghcr.io upx
     - name: login
       run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+        echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
         echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ github.actor }} --password-stdin
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push --dry-run upx
-        bashbrew push --dry-run --target-namespace docker.pkg.github.com/${{ github.repository }} upx
+        bashbrew push --dry-run --target-namespace ghcr.io upx
       if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push upx
-        bashbrew push --target-namespace docker.pkg.github.com/${{ github.repository }} upx
+        bashbrew push --target-namespace ghcr.io upx
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'

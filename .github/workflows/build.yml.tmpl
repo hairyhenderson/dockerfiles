@@ -1,3 +1,4 @@
+{{- $ghcrhost := "ghcr.io" }}
 name: Docker Build
 on: push
 
@@ -17,31 +18,31 @@ jobs:
     - name: build
       run: bashbrew build {{ . }}
     - name: tag
-      run: bashbrew tag --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+      run: bashbrew tag --target-namespace {{ $ghcrhost }} {{ . }}
     - name: login
       run: |
-        echo {{"${{ secrets.GITHUB_TOKEN }}"}} | docker login docker.pkg.github.com --username {{ "${{ github.actor }}" }} --password-stdin
+        echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
         echo {{"${{ secrets.DOCKERHUB_TOKEN }}"}} | docker login --username {{ "${{ github.actor }}" }} --password-stdin
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push --dry-run {{ . }}
-        bashbrew push --dry-run --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+        bashbrew push --dry-run --target-namespace {{ $ghcrhost }} {{ . }}
       if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push {{ . }}
-        bashbrew push --target-namespace docker.pkg.github.com/{{ "${{ github.repository }}" }} {{ . }}
+        bashbrew push --target-namespace {{ $ghcrhost }} {{ . }}
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
     {{- else }}
     - name: build
       run: make {{ . }}/image.iid
     - name: tag
-      run: docker tag $(< {{ . }}/image.iid) docker.pkg.github.com/{{ "${{ github.repository }}" }}/{{ . }}
+      run: docker tag $(< {{ . }}/image.iid) {{ $ghcrhost }}/{{ . }}
     - name: login
-      run: echo {{"${{ secrets.GITHUB_TOKEN }}"}} | docker login docker.pkg.github.com --username {{ "${{ github.actor }}" }} --password-stdin
+      run: echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
     - name: docker push
-      run: docker push docker.pkg.github.com/{{ "${{ github.repository }}" }}/{{ . }}
+      run: docker push {{ $ghcrhost }}/{{ . }}
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
     {{- end }}
 {{- end }}{{ end }}
