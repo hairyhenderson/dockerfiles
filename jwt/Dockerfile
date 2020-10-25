@@ -1,5 +1,7 @@
 FROM golang:1.15.3 AS build
 
+LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+
 RUN CGO_ENABLED=0 go get github.com/dgrijalva/jwt-go/cmd/jwt
 
 FROM scratch

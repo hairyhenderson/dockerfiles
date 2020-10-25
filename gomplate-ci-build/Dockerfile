@@ -42,6 +42,8 @@ RUN go get -u github.com/jstemmer/go-junit-report
 
 FROM golang:1.15.3 AS final
 
+LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+
 RUN mkdir -p /tmp/test-results
 
 RUN apt-get update \

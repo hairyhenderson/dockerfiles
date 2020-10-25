@@ -1,13 +1,8 @@
+FROM hashicorp/vault:1.5.4 AS vault
+FROM hairyhenderson/gomplate:v3.8.0-slim AS gomplate
 FROM node:15
 
-RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    unzip \
-  && curl -L -o /tmp/vault.zip https://releases.hashicorp.com/vault/0.7.0/vault_0.7.0_linux_amd64.zip \
-  && unzip -d /tmp /tmp/vault.zip \
-  && mv /tmp/vault /bin/vault \
-  && rm -rf /tmp/vault.zip \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-RUN curl -o /bin/gomplate -sSL -f https://github.com/hairyhenderson/gomplate/releases/download/v2.2.0/gomplate_linux-amd64-slim \
-  && chmod 755 /bin/gomplate
+LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+
+COPY --from=vault /bin/vault /bin/vault
+COPY --from=gomplate /gomplate /bin/gomplate

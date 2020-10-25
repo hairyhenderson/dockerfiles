@@ -15,6 +15,8 @@ RUN PREFIX=/trx make install
 
 FROM debian:stretch AS runtime
 
+LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+
 COPY --from=build /trx/bin/* /bin/
 
 RUN apt-get update && \

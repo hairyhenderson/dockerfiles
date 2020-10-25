@@ -5,6 +5,8 @@ FROM mikefarah/yq:3.4.1 AS yq
 
 FROM alpine:3.12.1 AS runtime
 
+LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+
 RUN apk add --no-cache make bash git curl ca-certificates
 COPY --from=gomplate /gomplate /bin/gomplate
 COPY --from=bashbrew /bin/bashbrew /bin/bashbrew
