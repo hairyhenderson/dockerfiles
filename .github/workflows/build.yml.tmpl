@@ -1,4 +1,5 @@
 {{- $ghcrhost := "ghcr.io" }}
+{{- $ghcrns := print $ghcrhost "/hairyhenderson" }}
 name: Docker Build
 on: push
 
@@ -18,7 +19,7 @@ jobs:
     - name: build
       run: bashbrew build {{ . }}
     - name: tag
-      run: bashbrew tag --target-namespace {{ $ghcrhost }} {{ . }}
+      run: bashbrew tag --target-namespace {{ $ghcrns }} {{ . }}
     - name: login
       run: |
         echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
@@ -27,22 +28,22 @@ jobs:
     - name: push
       run: |
         bashbrew push --dry-run {{ . }}
-        bashbrew push --dry-run --target-namespace {{ $ghcrhost }} {{ . }}
+        bashbrew push --dry-run --target-namespace {{ $ghcrns }} {{ . }}
       if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push {{ . }}
-        bashbrew push --target-namespace {{ $ghcrhost }} {{ . }}
+        bashbrew push --target-namespace {{ $ghcrns }} {{ . }}
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
     {{- else }}
     - name: build
       run: make {{ . }}/image.iid
     - name: tag
-      run: docker tag $(< {{ . }}/image.iid) {{ $ghcrhost }}/{{ . }}
+      run: docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}
     - name: login
       run: echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
     - name: docker push
-      run: docker push {{ $ghcrhost }}/{{ . }}
+      run: docker push {{ $ghcrns }}/{{ . }}
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
     {{- end }}
 {{- end }}{{ end }}
