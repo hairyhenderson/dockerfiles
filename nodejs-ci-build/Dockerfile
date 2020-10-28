@@ -1,4 +1,4 @@
-FROM hashicorp/vault:1.5.4 AS vault
+FROM hashicorp/vault:1.5.5 AS vault
 FROM hairyhenderson/gomplate:v3.8.0-slim AS gomplate
 FROM node:15
 
