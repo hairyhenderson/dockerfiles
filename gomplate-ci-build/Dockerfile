@@ -1,5 +1,5 @@
 FROM vault:1.6.0 AS vault
-FROM consul:1.8.5 AS consul
+FROM consul:1.8.6 AS consul
 FROM docker:19.03.13 AS docker
 FROM golangci/golangci-lint:v1.32.2 AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
