@@ -1,4 +1,4 @@
-FROM alpine:3.12.2
+FROM alpine:3.12.3
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
