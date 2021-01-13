@@ -7,7 +7,7 @@ jobs:
 {{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
   docker-build-{{ . }}:
     name: docker build {{ . }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: hairyhenderson/dockerfiles-builder:latest
     env:
