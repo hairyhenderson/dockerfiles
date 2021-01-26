@@ -1,5 +1,5 @@
 FROM hashicorp/vault:1.6.1 AS vault
-FROM hairyhenderson/gomplate:v3.8.0-slim AS gomplate
+FROM hairyhenderson/gomplate:v3.9.0-slim AS gomplate
 FROM node:15
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
