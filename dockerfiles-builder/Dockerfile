@@ -1,4 +1,4 @@
-FROM hairyhenderson/gomplate:v3.8.0-slim AS gomplate
+FROM hairyhenderson/gomplate:v3.9.0-slim AS gomplate
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:20.10.2 AS docker
 FROM mikefarah/yq:4.4.1 AS yq
