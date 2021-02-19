@@ -1,7 +1,7 @@
 FROM hairyhenderson/gomplate:v3.9.0-slim AS gomplate
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:20.10.3 AS docker
-FROM mikefarah/yq:4.5.1 AS yq
+FROM mikefarah/yq:4.6.0 AS yq
 
 FROM alpine:3.13.2 AS runtime
 
