@@ -3,7 +3,7 @@ FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:20.10.3 AS docker
 FROM mikefarah/yq:4.5.1 AS yq
 
-FROM alpine:3.13.1 AS runtime
+FROM alpine:3.13.2 AS runtime
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
