@@ -1,11 +1,13 @@
-FROM buildpack-deps:stretch AS build
+FROM buildpack-deps:buster AS build
+
+ENV TRX_VER=0.5
 
 RUN mkdir /src
 WORKDIR /src
-RUN curl -sSLO http://www.pogo.org.uk/%7Emark/trx/releases/trx-0.2.tar.gz
-RUN tar zxf trx-0.2.tar.gz
+RUN curl -sSLO http://www.pogo.org.uk/%7Emark/trx/releases/trx-${TRX_VER}.tar.gz
+RUN tar zxf trx-${TRX_VER}.tar.gz
 
-WORKDIR /src/trx-0.2
+WORKDIR /src/trx-${TRX_VER}
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libasound2-dev \
@@ -13,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libortp-dev
 RUN PREFIX=/trx make install
 
-FROM debian:stretch AS runtime
+FROM debian:buster AS runtime
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -23,7 +25,7 @@ RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     libasound2 \
     libopus0 \
-    libortp9 \
+    libortp13 \
     libasound2-plugins alsa-utils opus-tools \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
