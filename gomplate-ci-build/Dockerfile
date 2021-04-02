@@ -5,7 +5,7 @@ FROM golangci/golangci-lint:v1.39.0-alpine AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM hairyhenderson/buildx:latest AS buildx-plugin
 
-FROM alpine:3.13.3 AS cc-test-reporter
+FROM alpine:3.13.4 AS cc-test-reporter
 
 RUN set -eux; \
   apkArch="$(apk --print-arch)"; \
@@ -20,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.16.2 AS go-junit-report
+FROM golang:1.16.3 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.16.2 AS final
+FROM golang:1.16.3 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
