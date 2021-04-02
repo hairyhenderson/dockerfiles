@@ -16,7 +16,25 @@ jobs:
     - name: build
       run: make dockerfiles-builder/image.iid
     - name: tag
-      run: docker tag $(< dockerfiles-builder/image.iid) ghcr.io/hairyhenderson/dockerfiles-builder
+      run: |
+        docker tag $(< dockerfiles-builder/image.iid) ghcr.io/hairyhenderson/dockerfiles-builder
+        docker tag $(< dockerfiles-builder/image.iid) ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -35,7 +53,25 @@ jobs:
     - name: build
       run: make figlet/image.iid
     - name: tag
-      run: docker tag $(< figlet/image.iid) ghcr.io/hairyhenderson/figlet
+      run: |
+        docker tag $(< figlet/image.iid) ghcr.io/hairyhenderson/figlet
+        docker tag $(< figlet/image.iid) ghcr.io/hairyhenderson/figlet:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/figlet:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -54,7 +90,25 @@ jobs:
     - name: build
       run: make github_changelog_generator/image.iid
     - name: tag
-      run: docker tag $(< github_changelog_generator/image.iid) ghcr.io/hairyhenderson/github_changelog_generator
+      run: |
+        docker tag $(< github_changelog_generator/image.iid) ghcr.io/hairyhenderson/github_changelog_generator
+        docker tag $(< github_changelog_generator/image.iid) ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -73,7 +127,25 @@ jobs:
     - name: build
       run: make gomplate-ci-build/image.iid
     - name: tag
-      run: docker tag $(< gomplate-ci-build/image.iid) ghcr.io/hairyhenderson/gomplate-ci-build
+      run: |
+        docker tag $(< gomplate-ci-build/image.iid) ghcr.io/hairyhenderson/gomplate-ci-build
+        docker tag $(< gomplate-ci-build/image.iid) ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -92,7 +164,25 @@ jobs:
     - name: build
       run: make jwt/image.iid
     - name: tag
-      run: docker tag $(< jwt/image.iid) ghcr.io/hairyhenderson/jwt
+      run: |
+        docker tag $(< jwt/image.iid) ghcr.io/hairyhenderson/jwt
+        docker tag $(< jwt/image.iid) ghcr.io/hairyhenderson/jwt:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/jwt:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -111,7 +201,25 @@ jobs:
     - name: build
       run: make man/image.iid
     - name: tag
-      run: docker tag $(< man/image.iid) ghcr.io/hairyhenderson/man
+      run: |
+        docker tag $(< man/image.iid) ghcr.io/hairyhenderson/man
+        docker tag $(< man/image.iid) ghcr.io/hairyhenderson/man:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/man:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -130,7 +238,25 @@ jobs:
     - name: build
       run: make nodejs-ci-build/image.iid
     - name: tag
-      run: docker tag $(< nodejs-ci-build/image.iid) ghcr.io/hairyhenderson/nodejs-ci-build
+      run: |
+        docker tag $(< nodejs-ci-build/image.iid) ghcr.io/hairyhenderson/nodejs-ci-build
+        docker tag $(< nodejs-ci-build/image.iid) ghcr.io/hairyhenderson/nodejs-ci-build:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/nodejs-ci-build:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -149,7 +275,25 @@ jobs:
     - name: build
       run: make raspbian/image.iid
     - name: tag
-      run: docker tag $(< raspbian/image.iid) ghcr.io/hairyhenderson/raspbian
+      run: |
+        docker tag $(< raspbian/image.iid) ghcr.io/hairyhenderson/raspbian
+        docker tag $(< raspbian/image.iid) ghcr.io/hairyhenderson/raspbian:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/raspbian:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -168,7 +312,25 @@ jobs:
     - name: build
       run: make remarkjs/image.iid
     - name: tag
-      run: docker tag $(< remarkjs/image.iid) ghcr.io/hairyhenderson/remarkjs
+      run: |
+        docker tag $(< remarkjs/image.iid) ghcr.io/hairyhenderson/remarkjs
+        docker tag $(< remarkjs/image.iid) ghcr.io/hairyhenderson/remarkjs:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/remarkjs:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -187,7 +349,25 @@ jobs:
     - name: build
       run: make sed/image.iid
     - name: tag
-      run: docker tag $(< sed/image.iid) ghcr.io/hairyhenderson/sed
+      run: |
+        docker tag $(< sed/image.iid) ghcr.io/hairyhenderson/sed
+        docker tag $(< sed/image.iid) ghcr.io/hairyhenderson/sed:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/sed:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -206,7 +386,25 @@ jobs:
     - name: build
       run: make socat/image.iid
     - name: tag
-      run: docker tag $(< socat/image.iid) ghcr.io/hairyhenderson/socat
+      run: |
+        docker tag $(< socat/image.iid) ghcr.io/hairyhenderson/socat
+        docker tag $(< socat/image.iid) ghcr.io/hairyhenderson/socat:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/socat:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -225,7 +423,25 @@ jobs:
     - name: build
       run: make ssh/image.iid
     - name: tag
-      run: docker tag $(< ssh/image.iid) ghcr.io/hairyhenderson/ssh
+      run: |
+        docker tag $(< ssh/image.iid) ghcr.io/hairyhenderson/ssh
+        docker tag $(< ssh/image.iid) ghcr.io/hairyhenderson/ssh:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/ssh:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
@@ -244,7 +460,25 @@ jobs:
     - name: build
       run: make trx/image.iid
     - name: tag
-      run: docker tag $(< trx/image.iid) ghcr.io/hairyhenderson/trx
+      run: |
+        docker tag $(< trx/image.iid) ghcr.io/hairyhenderson/trx
+        docker tag $(< trx/image.iid) ghcr.io/hairyhenderson/trx:${{ github.sha }}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'ghcr.io/hairyhenderson/trx:${{ github.sha }}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
