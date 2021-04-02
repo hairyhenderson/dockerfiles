@@ -39,7 +39,25 @@ jobs:
     - name: build
       run: make {{ . }}/image.iid
     - name: tag
-      run: docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}
+      run: |
+        docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}
+        docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}:{{"${{ github.sha }}"}}
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '{{ $ghcrns }}/{{ . }}:{{"${{ github.sha }}"}}'
+        format: 'template'
+        template: '@/contrib/sarif.tpl'
+        output: 'trivy-results.sarif'
+        exit-code: 0
+        ignore-unfixed: true
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: 'trivy-results.sarif'
+      if: always()
+
     - name: login
       run: echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
     - name: docker push
