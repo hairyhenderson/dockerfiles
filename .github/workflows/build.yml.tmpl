@@ -1,7 +1,10 @@
 {{- $ghcrhost := "ghcr.io" }}
 {{- $ghcrns := print $ghcrhost "/hairyhenderson" }}
 name: Docker Build
-on: push
+on:
+  push:
+  schedule:
+    - cron: '42 2 * * 2'
 
 jobs:
 {{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
