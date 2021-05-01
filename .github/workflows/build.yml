@@ -1,7 +1,7 @@
 
 name: Docker Build
 on:
-  push:
+  pull_request:
   schedule:
     - cron: '42 2 * * 2'
 
@@ -29,7 +29,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -65,7 +65,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -101,7 +101,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -137,7 +137,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -173,7 +173,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -209,7 +209,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -245,7 +245,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -281,7 +281,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -317,7 +317,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -353,7 +353,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -389,7 +389,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -425,7 +425,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -461,7 +461,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
@@ -496,7 +496,7 @@ jobs:
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-        exit-code: 0
+        exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
