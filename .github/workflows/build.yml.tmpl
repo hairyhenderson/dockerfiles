@@ -3,6 +3,9 @@
 name: Docker Build
 on:
   pull_request:
+  push:
+    branches:
+      - master
   schedule:
     - cron: '42 2 * * 2'
 
