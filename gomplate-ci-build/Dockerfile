@@ -1,5 +1,5 @@
 FROM vault:1.7.0 AS vault
-FROM consul:1.9.4 AS consul
+FROM consul:1.9.5 AS consul
 FROM docker:20.10 AS docker
 FROM golangci/golangci-lint:v1.39.0-alpine AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
@@ -8,7 +8,7 @@ FROM hairyhenderson/buildx:latest AS buildx-plugin
 FROM alpine:3.13 AS cc-test-reporter
 
 RUN set -eux; \
-  apkArch="$(apk --print-arch)"; \
+	apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
 		x86_64) \
 			wget -qO /bin/cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 \
@@ -30,11 +30,13 @@ LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfi
 RUN mkdir -p /tmp/test-results
 
 RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    unzip \
-    jq \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+		unzip \
+		jq \
+		curl \
+		libcurl3-gnutls \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 COPY --from=golangci-lint /usr/bin/golangci-lint /bin/
 COPY --from=vault /bin/vault /bin/vault
