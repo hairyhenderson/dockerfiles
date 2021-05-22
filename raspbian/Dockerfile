@@ -3,7 +3,8 @@ FROM debian:10 AS build
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
-    gnupg
+    gnupg \
+    liblz4-1
 
 ADD https://archive.raspbian.org/raspbian.public.key /tmp/raspbian.public.key
 ADD https://archive.raspberrypi.org/debian/raspberrypi.gpg.key /tmp/raspberrypi.gpg.key

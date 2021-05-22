@@ -27,5 +27,6 @@ RUN apt-get update && \
     libopus0 \
     libortp13 \
     libasound2-plugins alsa-utils opus-tools \
+    liblz4-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
