@@ -225,42 +225,6 @@ jobs:
     - name: docker push
       run: docker push ghcr.io/hairyhenderson/man
       if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-  docker-build-nodejs-ci-build:
-    name: docker build nodejs-ci-build
-    runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
-    env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
-    steps:
-    - uses: actions/checkout@master
-    - name: build
-      run: make nodejs-ci-build/image.iid
-    - name: tag
-      run: |
-        docker tag $(< nodejs-ci-build/image.iid) ghcr.io/hairyhenderson/nodejs-ci-build
-        docker tag $(< nodejs-ci-build/image.iid) ghcr.io/hairyhenderson/nodejs-ci-build:${{ github.sha }}
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/nodejs-ci-build:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
-        output: 'trivy-results.sarif'
-        exit-code: 1
-        ignore-unfixed: true
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: 'trivy-results.sarif'
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/nodejs-ci-build
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
   docker-build-raspbian:
     name: docker build raspbian
     runs-on: ubuntu-20.04
