@@ -35,6 +35,7 @@ RUN apt-get update \
 		jq \
 		curl \
 		libcurl3-gnutls \
+		liblz4-1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
