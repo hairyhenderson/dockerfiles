@@ -9,8 +9,8 @@ ENV RATIO 4:3
 ENV HIGHLIGHT_LINES false
 ENV HIGHLIGHT_STYLE default
 
-# workaround for CVE-2021-20205
-RUN apk add -u --no-cache libjpeg-turbo
+# workaround for CVE-2021-22901
+RUN apk add -u --no-cache curl
 
 ADD https://gnab.github.io/remark/downloads/remark-${REMARK_VER}.min.js /usr/share/nginx/html/
 RUN chmod a+r /usr/share/nginx/html/remark-${REMARK_VER}.min.js
