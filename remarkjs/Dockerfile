@@ -2,7 +2,7 @@ FROM hairyhenderson/gomplate:v3.9.0 AS gomplate
 
 FROM nginx:1-alpine
 
-ENV REMARK_VER 0.14.0
+ENV REMARK_VER 0.14.1
 ENV WEBROOT /usr/share/nginx/html
 ENV TITLE My Title
 ENV RATIO 4:3
@@ -10,7 +10,7 @@ ENV HIGHLIGHT_LINES false
 ENV HIGHLIGHT_STYLE default
 
 # workaround for CVE-2021-22901
-RUN apk add -u --no-cache curl
+RUN apk add -u --no-cache curl libxml2
 
 ADD https://gnab.github.io/remark/downloads/remark-${REMARK_VER}.min.js /usr/share/nginx/html/
 RUN chmod a+r /usr/share/nginx/html/remark-${REMARK_VER}.min.js
