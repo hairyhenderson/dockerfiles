@@ -20,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.16.5 AS go-junit-report
+FROM golang:1.17beta1 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.16.5 AS final
+FROM golang:1.17beta1 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
