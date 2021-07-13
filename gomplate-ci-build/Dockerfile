@@ -23,7 +23,7 @@ RUN set -eux; \
 FROM golang:1.16.6 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.16.6
+FROM golang:1.16.6 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
