@@ -20,7 +20,9 @@ jobs:
       BASHBREW_LIBRARY: ./library
       BASHBREW_NAMESPACE: hairyhenderson
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     {{- if file.Exists (filepath.Join "library" .) }}
     - name: build
       run: |
@@ -65,6 +67,15 @@ jobs:
       run: |
         docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}
         docker tag $(< {{ . }}/image.iid) {{ $ghcrns }}/{{ . }}:{{"${{ github.sha }}"}}
+    - name: Run Trivy vulnerability scanner (table output)
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '{{ $ghcrns }}/{{ . }}:{{"${{ github.sha }}"}}'
+        format: 'table'
+        exit-code: 1
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
@@ -74,6 +85,8 @@ jobs:
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
       with:

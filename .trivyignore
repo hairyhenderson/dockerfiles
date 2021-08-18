@@ -1,5 +1,3 @@
 # k8s.io/client-go vuln - false positive due to semver reset in the k8s client (v0.16.9 is actually newer than 1.15.4)...
 CVE-2019-11250
 CVE-2020-8565
-# golang.org/x/crypto vuln present in debian-based golang:1.16.4 images - should go away in 1.16.5, probably?
-CVE-2020-29652

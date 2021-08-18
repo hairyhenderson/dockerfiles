@@ -1,11 +1,11 @@
-FROM vault:1.7.2 AS vault
-FROM consul:1.9.6 AS consul
+FROM vault:1.8.1 AS vault
+FROM consul:1.10.1 AS consul
 FROM docker:20.10 AS docker
-FROM golangci/golangci-lint:v1.41.0-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.41.1-alpine AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM hairyhenderson/buildx:latest AS buildx-plugin
 
-FROM alpine:3.14.0 AS cc-test-reporter
+FROM alpine:3.14 AS cc-test-reporter
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
@@ -20,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.16.6 AS go-junit-report
+FROM golang:1.16.7 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.16.6 AS final
+FROM golang:1.16.7 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -36,6 +36,11 @@ RUN apt-get update \
 		curl \
 		libcurl3-gnutls \
 		liblz4-1 \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+		libgssapi-krb5-2 \
+		libk5crypto3 \
+		libkrb5-3 \
+		libkrb5support0 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 

@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -12,8 +12,8 @@ RUN set -eux; \
 		aarch64)	binArch='arm64v8' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
-	wget -O /bin/bashbrew https://doi-janky.infosiftr.net/job/bashbrew/lastSuccessfulBuild/artifact/bin/bashbrew-${binArch}; \
-	wget -O /bin/manifest-tool https://doi-janky.infosiftr.net/job/bashbrew/lastSuccessfulBuild/artifact/bin/manifest-tool-${binArch}; \
+	wget -O /bin/bashbrew https://doi-janky.infosiftr.net/job/bashbrew/job/master/lastSuccessfulBuild/artifact/bashbrew-${binArch}; \
+	wget -O /bin/manifest-tool https://doi-janky.infosiftr.net/job/bashbrew/job/master/lastSuccessfulBuild/artifact/manifest-tool-${binArch}; \
 	chmod 755 /bin/bashbrew; \
 	chmod 755 /bin/manifest-tool
 
