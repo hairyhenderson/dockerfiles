@@ -4,8 +4,7 @@ Tags: 3.96, latest
 GitRepo: https://github.com/hairyhenderson/dockerfiles.git
 Directory: upx
 # GitFetch: refs/tags/upx-3.96
-GitFetch: refs/heads/trivy-fixes
-GitCommit: ffa613577404c35aef71a6d329ab90f605c71f5c
+GitCommit: 53b2abd95114c3613f624ca487e1d7726a53d95b
 Architectures: amd64
 
 Tags: 3.94
