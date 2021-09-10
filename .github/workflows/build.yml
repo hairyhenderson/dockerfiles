@@ -12,21 +12,33 @@ jobs:
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make dockerfiles-builder/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< dockerfiles-builder/image.iid) ghcr.io/hairyhenderson/dockerfiles-builder
-        docker tag $(< dockerfiles-builder/image.iid) ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -52,30 +64,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/dockerfiles-builder
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/dockerfiles-builder:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/dockerfiles-builder:${{ github.sha }} \
+        #   hairyhenderson/dockerfiles-builder:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-figlet:
     name: docker build figlet
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make figlet/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< figlet/image.iid) ghcr.io/hairyhenderson/figlet
-        docker tag $(< figlet/image.iid) ghcr.io/hairyhenderson/figlet:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -101,30 +152,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/figlet
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --push figlet/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/figlet:${{ github.sha }} --push figlet/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/figlet:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/figlet:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/figlet:${{ github.sha }} \
+        #   hairyhenderson/figlet:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-github_changelog_generator:
     name: docker build github_changelog_generator
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make github_changelog_generator/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< github_changelog_generator/image.iid) ghcr.io/hairyhenderson/github_changelog_generator
-        docker tag $(< github_changelog_generator/image.iid) ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} --load github_changelog_generator/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -150,30 +240,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/github_changelog_generator
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} --push github_changelog_generator/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/github_changelog_generator:${{ github.sha }} --push github_changelog_generator/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/github_changelog_generator:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/github_changelog_generator:${{ github.sha }} \
+        #   hairyhenderson/github_changelog_generator:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make gomplate-ci-build/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< gomplate-ci-build/image.iid) ghcr.io/hairyhenderson/gomplate-ci-build
-        docker tag $(< gomplate-ci-build/image.iid) ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -199,30 +328,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/gomplate-ci-build
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/gomplate-ci-build:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/gomplate-ci-build:${{ github.sha }} \
+        #   hairyhenderson/gomplate-ci-build:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-jwt:
     name: docker build jwt
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make jwt/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< jwt/image.iid) ghcr.io/hairyhenderson/jwt
-        docker tag $(< jwt/image.iid) ghcr.io/hairyhenderson/jwt:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/jwt:${{ github.sha }} --load jwt/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -248,30 +416,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/jwt
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/jwt:${{ github.sha }} --push jwt/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/jwt:${{ github.sha }} --push jwt/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/jwt:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/jwt:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/jwt:${{ github.sha }} \
+        #   hairyhenderson/jwt:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-man:
     name: docker build man
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make man/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< man/image.iid) ghcr.io/hairyhenderson/man
-        docker tag $(< man/image.iid) ghcr.io/hairyhenderson/man:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -297,30 +504,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/man
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --push man/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/man:${{ github.sha }} --push man/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/man:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/man:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/man:${{ github.sha }} \
+        #   hairyhenderson/man:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-remarkjs:
     name: docker build remarkjs
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make remarkjs/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< remarkjs/image.iid) ghcr.io/hairyhenderson/remarkjs
-        docker tag $(< remarkjs/image.iid) ghcr.io/hairyhenderson/remarkjs:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} --load remarkjs/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -346,30 +592,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/remarkjs
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/remarkjs:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/remarkjs:${{ github.sha }} \
+        #   hairyhenderson/remarkjs:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-sed:
     name: docker build sed
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make sed/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< sed/image.iid) ghcr.io/hairyhenderson/sed
-        docker tag $(< sed/image.iid) ghcr.io/hairyhenderson/sed:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -395,30 +680,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/sed
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --push sed/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/sed:${{ github.sha }} --push sed/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/sed:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/sed:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/sed:${{ github.sha }} \
+        #   hairyhenderson/sed:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-socat:
     name: docker build socat
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make socat/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< socat/image.iid) ghcr.io/hairyhenderson/socat
-        docker tag $(< socat/image.iid) ghcr.io/hairyhenderson/socat:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -444,30 +768,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/socat
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --push socat/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/socat:${{ github.sha }} --push socat/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/socat:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/socat:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/socat:${{ github.sha }} \
+        #   hairyhenderson/socat:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-ssh:
     name: docker build ssh
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make ssh/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< ssh/image.iid) ghcr.io/hairyhenderson/ssh
-        docker tag $(< ssh/image.iid) ghcr.io/hairyhenderson/ssh:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -493,30 +856,69 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/ssh
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --push ssh/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/ssh:${{ github.sha }} --push ssh/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/ssh:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/ssh:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/ssh:${{ github.sha }} \
+        #   hairyhenderson/ssh:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-trx:
     name: docker build trx
     runs-on: ubuntu-20.04
-    container:
-      image: hairyhenderson/dockerfiles-builder:latest
     env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
+      DOCKER_BUILDKIT: 1
+      DOCKER_CLI_EXPERIMENTAL: enabled
     steps:
+    - name: enable experimental mode
+      run: |
+        mkdir -p ~/.docker
+        echo '{"experimental": "enabled"}' > ~/.docker/config.json
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: build
-      run: make trx/image.iid
-    - name: tag
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1.6.0
+      with:
+        version: v0.5.1
+        driver-opts: |
+          image=moby/buildkit:buildx-stable-1
+          network=host
+    - name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+    - name: Build (non-master branch)
       run: |
-        docker tag $(< trx/image.iid) ghcr.io/hairyhenderson/trx
-        docker tag $(< trx/image.iid) ghcr.io/hairyhenderson/trx:${{ github.sha }}
+        docker buildx build --tag ghcr.io/hairyhenderson/trx:${{ github.sha }} --load trx/
+      if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
@@ -542,12 +944,39 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: login
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
-    - name: docker push
-      run: docker push ghcr.io/hairyhenderson/trx
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+    - name: Login to GHCR
+      uses: docker/login-action@v1.10.0
+      with:
+          registry: ghcr.io
+          username: '${{ github.actor }}'
+          password: '${{ secrets.GHCR_TOKEN }}'
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+    - name: Login to DockerHub
+      uses: docker/login-action@v1.10.0
+      with:
+          username: '${{ github.actor }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+    - name: Build & Push (master branch)
+      run: |
+        PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag ghcr.io/hairyhenderson/trx:${{ github.sha }} --push trx/
+        # docker buildx build \
+        #   --platform $PLATFORMS \
+        #   --tag hairyhenderson/trx:${{ github.sha }} --push trx/
+
+        # docker buildx imagetools create \
+        #   -t ghcr.io/hairyhenderson/trx:${{ github.sha }} \
+        #   ghcr.io/hairyhenderson/trx:latest
+        # docker buildx imagetools create \
+        #   -t hairyhenderson/trx:${{ github.sha }} \
+        #   hairyhenderson/trx:latest
+      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
   docker-build-upx:
     name: docker build upx
     runs-on: ubuntu-20.04
