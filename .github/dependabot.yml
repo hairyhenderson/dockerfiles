@@ -1,5 +1,12 @@
 version: 2
 updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "01:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
 - package-ecosystem: docker
   directory: "/dockerfiles-builder"
   schedule:
@@ -22,6 +29,13 @@ updates:
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
+  directory: "/golang-air"
+  schedule:
+    interval: daily
+    time: "02:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+- package-ecosystem: docker
   directory: "/gomplate-ci-build"
   schedule:
     interval: daily
@@ -37,20 +51,6 @@ updates:
   open-pull-requests-limit: 10
 - package-ecosystem: docker
   directory: "/man"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/nodejs-ci-build"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/raspbian"
   schedule:
     interval: daily
     time: "02:00"

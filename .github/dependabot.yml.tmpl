@@ -1,5 +1,12 @@
 version: 2
 updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "01:00"
+    timezone: Canada/Eastern
+  open-pull-requests-limit: 10
 {{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
 - package-ecosystem: docker
   directory: "/{{ . }}"
