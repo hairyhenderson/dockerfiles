@@ -5,3 +5,9 @@ CVE-2020-8565
 CVE-2021-3121
 CVE-2020-29529
 CVE-2021-29482
+# pulled in by bashbrew, cc-test-reporter, and docker-buildx plugin
+# these are all build/CI-time dependencies and the vulns are SSH-related which
+# we don't do here
+CVE-2020-29652
+CVE-2020-9283
+CVE-2021-41092
