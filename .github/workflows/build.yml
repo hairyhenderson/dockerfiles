@@ -70,8 +70,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -85,18 +84,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/dockerfiles-builder:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/dockerfiles-builder:${{ github.sha }} \
-        #   hairyhenderson/dockerfiles-builder:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} \
+          ghcr.io/hairyhenderson/dockerfiles-builder:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/dockerfiles-builder:${{ github.sha }} \
+          hairyhenderson/dockerfiles-builder:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-figlet:
     name: docker build figlet
     runs-on: ubuntu-20.04
@@ -158,8 +156,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -173,18 +170,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --push figlet/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/figlet:${{ github.sha }} --push figlet/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/figlet:${{ github.sha }} --push figlet/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/figlet:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/figlet:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/figlet:${{ github.sha }} \
-        #   hairyhenderson/figlet:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/figlet:${{ github.sha }} \
+          ghcr.io/hairyhenderson/figlet:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/figlet:${{ github.sha }} \
+          hairyhenderson/figlet:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-github_changelog_generator:
     name: docker build github_changelog_generator
     runs-on: ubuntu-20.04
@@ -246,8 +242,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -261,18 +256,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} --push github_changelog_generator/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/github_changelog_generator:${{ github.sha }} --push github_changelog_generator/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/github_changelog_generator:${{ github.sha }} --push github_changelog_generator/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/github_changelog_generator:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/github_changelog_generator:${{ github.sha }} \
-        #   hairyhenderson/github_changelog_generator:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/github_changelog_generator:${{ github.sha }} \
+          ghcr.io/hairyhenderson/github_changelog_generator:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/github_changelog_generator:${{ github.sha }} \
+          hairyhenderson/github_changelog_generator:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-golang-air:
     name: docker build golang-air
     runs-on: ubuntu-20.04
@@ -334,8 +328,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -349,18 +342,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/golang-air:${{ github.sha }} --push golang-air/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/golang-air:${{ github.sha }} --push golang-air/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/golang-air:${{ github.sha }} --push golang-air/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/golang-air:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/golang-air:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/golang-air:${{ github.sha }} \
-        #   hairyhenderson/golang-air:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/golang-air:${{ github.sha }} \
+          ghcr.io/hairyhenderson/golang-air:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/golang-air:${{ github.sha }} \
+          hairyhenderson/golang-air:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
     runs-on: ubuntu-20.04
@@ -422,8 +414,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -437,18 +428,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/gomplate-ci-build:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/gomplate-ci-build:${{ github.sha }} \
-        #   hairyhenderson/gomplate-ci-build:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} \
+          ghcr.io/hairyhenderson/gomplate-ci-build:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/gomplate-ci-build:${{ github.sha }} \
+          hairyhenderson/gomplate-ci-build:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-jwt:
     name: docker build jwt
     runs-on: ubuntu-20.04
@@ -510,8 +500,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -525,18 +514,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/jwt:${{ github.sha }} --push jwt/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/jwt:${{ github.sha }} --push jwt/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/jwt:${{ github.sha }} --push jwt/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/jwt:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/jwt:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/jwt:${{ github.sha }} \
-        #   hairyhenderson/jwt:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/jwt:${{ github.sha }} \
+          ghcr.io/hairyhenderson/jwt:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/jwt:${{ github.sha }} \
+          hairyhenderson/jwt:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-man:
     name: docker build man
     runs-on: ubuntu-20.04
@@ -598,8 +586,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -613,18 +600,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --push man/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/man:${{ github.sha }} --push man/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/man:${{ github.sha }} --push man/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/man:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/man:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/man:${{ github.sha }} \
-        #   hairyhenderson/man:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/man:${{ github.sha }} \
+          ghcr.io/hairyhenderson/man:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/man:${{ github.sha }} \
+          hairyhenderson/man:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-remarkjs:
     name: docker build remarkjs
     runs-on: ubuntu-20.04
@@ -686,8 +672,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -701,18 +686,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/remarkjs:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/remarkjs:${{ github.sha }} \
-        #   hairyhenderson/remarkjs:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} \
+          ghcr.io/hairyhenderson/remarkjs:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/remarkjs:${{ github.sha }} \
+          hairyhenderson/remarkjs:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-sed:
     name: docker build sed
     runs-on: ubuntu-20.04
@@ -774,8 +758,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -789,18 +772,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --push sed/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/sed:${{ github.sha }} --push sed/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/sed:${{ github.sha }} --push sed/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/sed:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/sed:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/sed:${{ github.sha }} \
-        #   hairyhenderson/sed:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/sed:${{ github.sha }} \
+          ghcr.io/hairyhenderson/sed:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/sed:${{ github.sha }} \
+          hairyhenderson/sed:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-socat:
     name: docker build socat
     runs-on: ubuntu-20.04
@@ -862,8 +844,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -877,18 +858,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --push socat/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/socat:${{ github.sha }} --push socat/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/socat:${{ github.sha }} --push socat/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/socat:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/socat:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/socat:${{ github.sha }} \
-        #   hairyhenderson/socat:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/socat:${{ github.sha }} \
+          ghcr.io/hairyhenderson/socat:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/socat:${{ github.sha }} \
+          hairyhenderson/socat:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-ssh:
     name: docker build ssh
     runs-on: ubuntu-20.04
@@ -950,8 +930,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -965,18 +944,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --push ssh/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/ssh:${{ github.sha }} --push ssh/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/ssh:${{ github.sha }} --push ssh/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/ssh:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/ssh:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/ssh:${{ github.sha }} \
-        #   hairyhenderson/ssh:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/ssh:${{ github.sha }} \
+          ghcr.io/hairyhenderson/ssh:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/ssh:${{ github.sha }} \
+          hairyhenderson/ssh:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-trx:
     name: docker build trx
     runs-on: ubuntu-20.04
@@ -1038,8 +1016,7 @@ jobs:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -1053,18 +1030,17 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/trx:${{ github.sha }} --push trx/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/trx:${{ github.sha }} --push trx/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/trx:${{ github.sha }} --push trx/
 
-        # docker buildx imagetools create \
-        #   -t ghcr.io/hairyhenderson/trx:${{ github.sha }} \
-        #   ghcr.io/hairyhenderson/trx:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/trx:${{ github.sha }} \
-        #   hairyhenderson/trx:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/trx:${{ github.sha }} \
+          ghcr.io/hairyhenderson/trx:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/trx:${{ github.sha }} \
+          hairyhenderson/trx:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-upx:
     name: docker build upx
     runs-on: ubuntu-20.04

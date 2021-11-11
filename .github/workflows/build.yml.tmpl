@@ -128,8 +128,7 @@ jobs:
           registry: ghcr.io
           username: '{{ `${{ github.actor }}` }}'
           password: '{{ `${{ secrets.GHCR_TOKEN }}` }}'
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     - name: Login to DockerHub
       uses: docker/login-action@v1.10.0
       with:
@@ -147,17 +146,16 @@ jobs:
         docker buildx build \
           --platform $PLATFORMS \
           --tag {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
-        # docker buildx build \
-        #   --platform $PLATFORMS \
-        #   --tag hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
+        docker buildx build \
+          --platform $PLATFORMS \
+          --tag hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
 
-        # docker buildx imagetools create \
-        #   -t {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} \
-        #   {{ $ghcrns }}/{{ . }}:latest
-        # docker buildx imagetools create \
-        #   -t hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} \
-        #   hairyhenderson/{{ . }}:latest
-      # if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+        docker buildx imagetools create \
+          -t {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} \
+          {{ $ghcrns }}/{{ . }}:latest
+        docker buildx imagetools create \
+          -t hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} \
+          hairyhenderson/{{ . }}:latest
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     {{- end }}
 {{- end }}{{ end }}
