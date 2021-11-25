@@ -1,4 +1,4 @@
-FROM vault:1.8.5 AS vault
+FROM vault:1.9.0 AS vault
 FROM consul:1.10.4 AS consul
 FROM docker:20.10 AS docker
 FROM golangci/golangci-lint:v1.43.0-alpine AS golangci-lint
