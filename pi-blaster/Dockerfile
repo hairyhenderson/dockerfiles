@@ -1,4 +1,4 @@
-FROM alpine:3.13 as builder
+FROM alpine:3.15 as builder
 
 RUN apk add --no-cache \
     build-base \
@@ -14,7 +14,7 @@ RUN ./autogen.sh
 RUN ./configure
 RUN make
 
-FROM alpine:3.13
+FROM alpine:3.15
 
 COPY --from=builder /pi-blaster/pi-blaster /
 
