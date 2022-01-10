@@ -1,9 +1,9 @@
-FROM vault:1.9.1 AS vault
+FROM vault:1.9.2 AS vault
 FROM consul:1.11.1 AS consul
 FROM docker:20.10 AS docker
 FROM golangci/golangci-lint:v1.43.0-alpine AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
-FROM hairyhenderson/buildx:latest AS buildx-plugin
+FROM docker/buildx-bin:master AS buildx-plugin
 
 FROM alpine:3.15 AS cc-test-reporter
 
@@ -20,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.17.5 AS go-junit-report
+FROM golang:1.17.6 AS go-junit-report
 RUN go get -u github.com/jstemmer/go-junit-report
 
-FROM golang:1.17.5 AS final
+FROM golang:1.17.6 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -50,5 +50,5 @@ COPY --from=consul /bin/consul /bin/consul
 COPY --from=docker /usr/local/bin/docker /bin/docker
 COPY --from=cc-test-reporter /bin/cc-test-reporter /bin/cc-test-reporter
 COPY --from=go-junit-report /go/bin/go-junit-report /bin/go-junit-report
-COPY --from=buildx-plugin /buildx /usr/lib/docker/cli-plugins/docker-buildx
+COPY --from=buildx-plugin /buildx /usr/libexec/docker/cli-plugins/docker-buildx
 COPY --from=bashbrew /bin/bashbrew /bin/bashbrew
