@@ -151,11 +151,11 @@ jobs:
           --tag hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
 
         docker buildx imagetools create \
-          -t {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} \
-          {{ $ghcrns }}/{{ . }}:latest
+          -t {{ $ghcrns }}/{{ . }}:latest \
+          {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }}
         docker buildx imagetools create \
-          -t hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} \
-          hairyhenderson/{{ . }}:latest
+          -t hairyhenderson/{{ . }}:latest \
+          hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
     {{- end }}
 {{- end }}{{ end }}

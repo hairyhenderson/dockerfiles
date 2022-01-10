@@ -89,11 +89,11 @@ jobs:
           --tag hairyhenderson/dockerfiles-builder:${{ github.sha }} --push dockerfiles-builder/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} \
-          ghcr.io/hairyhenderson/dockerfiles-builder:latest
+          -t ghcr.io/hairyhenderson/dockerfiles-builder:latest \
+          ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/dockerfiles-builder:${{ github.sha }} \
-          hairyhenderson/dockerfiles-builder:latest
+          -t hairyhenderson/dockerfiles-builder:latest \
+          hairyhenderson/dockerfiles-builder:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-figlet:
     name: docker build figlet
@@ -175,11 +175,11 @@ jobs:
           --tag hairyhenderson/figlet:${{ github.sha }} --push figlet/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/figlet:${{ github.sha }} \
-          ghcr.io/hairyhenderson/figlet:latest
+          -t ghcr.io/hairyhenderson/figlet:latest \
+          ghcr.io/hairyhenderson/figlet:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/figlet:${{ github.sha }} \
-          hairyhenderson/figlet:latest
+          -t hairyhenderson/figlet:latest \
+          hairyhenderson/figlet:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-golang-air:
     name: docker build golang-air
@@ -261,11 +261,11 @@ jobs:
           --tag hairyhenderson/golang-air:${{ github.sha }} --push golang-air/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/golang-air:${{ github.sha }} \
-          ghcr.io/hairyhenderson/golang-air:latest
+          -t ghcr.io/hairyhenderson/golang-air:latest \
+          ghcr.io/hairyhenderson/golang-air:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/golang-air:${{ github.sha }} \
-          hairyhenderson/golang-air:latest
+          -t hairyhenderson/golang-air:latest \
+          hairyhenderson/golang-air:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
@@ -347,11 +347,11 @@ jobs:
           --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} \
-          ghcr.io/hairyhenderson/gomplate-ci-build:latest
+          -t ghcr.io/hairyhenderson/gomplate-ci-build:latest \
+          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/gomplate-ci-build:${{ github.sha }} \
-          hairyhenderson/gomplate-ci-build:latest
+          -t hairyhenderson/gomplate-ci-build:latest \
+          hairyhenderson/gomplate-ci-build:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-jwt:
     name: docker build jwt
@@ -433,11 +433,11 @@ jobs:
           --tag hairyhenderson/jwt:${{ github.sha }} --push jwt/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/jwt:${{ github.sha }} \
-          ghcr.io/hairyhenderson/jwt:latest
+          -t ghcr.io/hairyhenderson/jwt:latest \
+          ghcr.io/hairyhenderson/jwt:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/jwt:${{ github.sha }} \
-          hairyhenderson/jwt:latest
+          -t hairyhenderson/jwt:latest \
+          hairyhenderson/jwt:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-man:
     name: docker build man
@@ -519,11 +519,11 @@ jobs:
           --tag hairyhenderson/man:${{ github.sha }} --push man/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/man:${{ github.sha }} \
-          ghcr.io/hairyhenderson/man:latest
+          -t ghcr.io/hairyhenderson/man:latest \
+          ghcr.io/hairyhenderson/man:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/man:${{ github.sha }} \
-          hairyhenderson/man:latest
+          -t hairyhenderson/man:latest \
+          hairyhenderson/man:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-remarkjs:
     name: docker build remarkjs
@@ -605,11 +605,11 @@ jobs:
           --tag hairyhenderson/remarkjs:${{ github.sha }} --push remarkjs/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/remarkjs:${{ github.sha }} \
-          ghcr.io/hairyhenderson/remarkjs:latest
+          -t ghcr.io/hairyhenderson/remarkjs:latest \
+          ghcr.io/hairyhenderson/remarkjs:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/remarkjs:${{ github.sha }} \
-          hairyhenderson/remarkjs:latest
+          -t hairyhenderson/remarkjs:latest \
+          hairyhenderson/remarkjs:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-sed:
     name: docker build sed
@@ -691,11 +691,11 @@ jobs:
           --tag hairyhenderson/sed:${{ github.sha }} --push sed/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/sed:${{ github.sha }} \
-          ghcr.io/hairyhenderson/sed:latest
+          -t ghcr.io/hairyhenderson/sed:latest \
+          ghcr.io/hairyhenderson/sed:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/sed:${{ github.sha }} \
-          hairyhenderson/sed:latest
+          -t hairyhenderson/sed:latest \
+          hairyhenderson/sed:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-socat:
     name: docker build socat
@@ -777,11 +777,11 @@ jobs:
           --tag hairyhenderson/socat:${{ github.sha }} --push socat/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/socat:${{ github.sha }} \
-          ghcr.io/hairyhenderson/socat:latest
+          -t ghcr.io/hairyhenderson/socat:latest \
+          ghcr.io/hairyhenderson/socat:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/socat:${{ github.sha }} \
-          hairyhenderson/socat:latest
+          -t hairyhenderson/socat:latest \
+          hairyhenderson/socat:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-ssh:
     name: docker build ssh
@@ -863,11 +863,11 @@ jobs:
           --tag hairyhenderson/ssh:${{ github.sha }} --push ssh/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/ssh:${{ github.sha }} \
-          ghcr.io/hairyhenderson/ssh:latest
+          -t ghcr.io/hairyhenderson/ssh:latest \
+          ghcr.io/hairyhenderson/ssh:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/ssh:${{ github.sha }} \
-          hairyhenderson/ssh:latest
+          -t hairyhenderson/ssh:latest \
+          hairyhenderson/ssh:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-trx:
     name: docker build trx
@@ -949,11 +949,11 @@ jobs:
           --tag hairyhenderson/trx:${{ github.sha }} --push trx/
 
         docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/trx:${{ github.sha }} \
-          ghcr.io/hairyhenderson/trx:latest
+          -t ghcr.io/hairyhenderson/trx:latest \
+          ghcr.io/hairyhenderson/trx:${{ github.sha }}
         docker buildx imagetools create \
-          -t hairyhenderson/trx:${{ github.sha }} \
-          hairyhenderson/trx:latest
+          -t hairyhenderson/trx:latest \
+          hairyhenderson/trx:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
   docker-build-upx:
     name: docker build upx
