@@ -4,6 +4,8 @@ CVE-2020-8565
 CVE-2021-38561
 # vault v1.9.2 - probably a false positive due to semver differences
 CVE-2018-17572
+# vault - influx dep which isn't used
+CVE-2019-20933
 # docker-buildx v0.7.1
 CVE-2021-41092
 # cc-test-reporter depencency vuln to do with ssh - not relevant
