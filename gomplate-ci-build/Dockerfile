@@ -41,6 +41,7 @@ RUN apt-get update \
 		libk5crypto3 \
 		libkrb5-3 \
 		libkrb5support0 \
+		linux-libc-dev \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
