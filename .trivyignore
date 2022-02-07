@@ -10,3 +10,5 @@ CVE-2019-20933
 CVE-2021-41092
 # cc-test-reporter depencency vuln to do with ssh - not relevant
 CVE-2020-29652
+# bashbrew dep - containerd
+CVE-2021-43816
