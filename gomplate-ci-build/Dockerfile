@@ -33,15 +33,8 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		unzip \
 		jq \
-		curl \
-		libcurl3-gnutls \
-		liblz4-1 \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		libgssapi-krb5-2 \
-		libk5crypto3 \
-		libkrb5-3 \
-		libkrb5support0 \
-		linux-libc-dev \
+		libexpat1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
