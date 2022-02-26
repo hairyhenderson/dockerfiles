@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: '42 2 * * 2'
 
@@ -60,12 +60,12 @@ jobs:
       run: |
         bashbrew push --dry-run {{ . }}
         bashbrew push --dry-run --target-namespace {{ $ghcrns }} {{ . }}
-      if: github.ref != 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
+      if: github.ref != 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
         bashbrew push {{ . }}
         bashbrew push --target-namespace {{ $ghcrns }} {{ . }}
-      if: github.ref == 'refs/heads/master' && github.repository == 'hairyhenderson/dockerfiles'
+      if: github.ref == 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles'
   {{- else }}
   docker-build-{{ . }}:
     name: docker build {{ . }}
@@ -93,7 +93,7 @@ jobs:
           network=host
     - name: Available platforms
       run: echo {{ `${{ steps.buildx.outputs.platforms }}` }}
-    - name: Build (non-master branch)
+    - name: Build (non-main branch)
       run: |
         docker buildx build --tag {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} --load {{ . }}/
       if: github.repository == 'hairyhenderson/dockerfiles'
@@ -123,19 +123,19 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v1.10.0
+      uses: docker/login-action@v1.13.0
       with:
           registry: ghcr.io
           username: '{{ `${{ github.actor }}` }}'
           password: '{{ `${{ secrets.GHCR_TOKEN }}` }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v1.10.0
+      uses: docker/login-action@v1.13.0
       with:
           username: '{{ `${{ github.actor }}` }}'
           password: '{{ `${{ secrets.DOCKERHUB_TOKEN }}` }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
-    - name: Build & Push (master branch)
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+    - name: Build & Push (main branch)
       run: |
         {{- if file.Exists (filepath.Join . ".docker-platforms") }}
         PLATFORMS={{ file.Read (filepath.Join . ".docker-platforms") | strings.TrimSpace }}
@@ -156,6 +156,6 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/{{ . }}:latest \
           hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/master'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     {{- end }}
 {{- end }}{{ end }}
