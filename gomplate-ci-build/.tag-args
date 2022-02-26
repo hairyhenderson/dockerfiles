@@ -1,0 +1,6 @@
+- tags: ['1.17', 'latest']
+  args:
+    GO_VERSION: '1.17'
+- tags: ['1.18']
+  args:
+    GO_VERSION: '1.18rc1'

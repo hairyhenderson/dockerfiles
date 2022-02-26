@@ -10,16 +10,16 @@ on:
     - cron: '42 2 * * 2'
 
 jobs:
-{{- range .dir }}
-{{- $isDir := file.IsDir . -}}
-{{ $hasDockerfile := file.Exists (filepath.Join . "Dockerfile") -}}
+{{- range $dir := .dir }}
+{{- $isDir := file.IsDir $dir -}}
+{{ $hasDockerfile := file.Exists (filepath.Join $dir "Dockerfile") -}}
 {{ $notHidden := not (strings.HasPrefix "." .) -}}
-{{ $noIgnore := not (file.Exists (filepath.Join . ".ignore")) -}}
+{{ $noIgnore := not (file.Exists (filepath.Join $dir ".ignore")) -}}
 {{ $bashbrewBuild := file.Exists (filepath.Join "library" .) -}}
 {{ if and $isDir $hasDockerfile $notHidden $noIgnore }}
   {{- if $bashbrewBuild }}
-  docker-build-{{ . }}:
-    name: docker build {{ . }}
+  docker-build-{{ $dir }}:
+    name: docker build {{ $dir }}
     runs-on: ubuntu-20.04
     container:
       image: hairyhenderson/dockerfiles-builder:latest
@@ -32,8 +32,8 @@ jobs:
         fetch-depth: 0
     - name: build
       run: |
-        bashbrew build {{ . }}
-        img=$(bashbrew ls {{ . }} --uniq | head -n1)
+        bashbrew build {{ $dir }}
+        img=$(bashbrew ls {{ $dir }} --uniq | head -n1)
         echo "IMG_NAME=${img}" >> $GITHUB_ENV
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
@@ -50,7 +50,7 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: tag
-      run: bashbrew tag --target-namespace {{ $ghcrns }} {{ . }}
+      run: bashbrew tag --target-namespace {{ $ghcrns }} {{ $dir }}
     - name: login
       run: |
         echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
@@ -58,17 +58,22 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
-        bashbrew push --dry-run {{ . }}
-        bashbrew push --dry-run --target-namespace {{ $ghcrns }} {{ . }}
+        bashbrew push --dry-run {{ $dir }}
+        bashbrew push --dry-run --target-namespace {{ $ghcrns }} {{ $dir }}
       if: github.ref != 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
     - name: push
       run: |
-        bashbrew push {{ . }}
-        bashbrew push --target-namespace {{ $ghcrns }} {{ . }}
+        bashbrew push {{ $dir }}
+        bashbrew push --target-namespace {{ $ghcrns }} {{ $dir }}
       if: github.ref == 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles'
   {{- else }}
-  docker-build-{{ . }}:
-    name: docker build {{ . }}
+  {{- $tagargsfile := filepath.Join $dir ".tag-args"}}
+  {{- $tagargs := jsonArray `[{"tags": ["latest"], "args": {}}]` }}
+  {{- if file.Exists $tagargsfile }}
+    {{- $tagargs = (file.Read $tagargsfile) | yamlArray }}
+  {{- end }}
+  docker-build-{{ $dir }}:
+    name: docker build {{ $dir }}
     runs-on: ubuntu-20.04
     env:
       DOCKER_BUILDKIT: 1
@@ -95,12 +100,14 @@ jobs:
       run: echo {{ `${{ steps.buildx.outputs.platforms }}` }}
     - name: Build (non-main branch)
       run: |
-        docker buildx build --tag {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} --load {{ . }}/
+        {{- range $a := $tagargs }}
+        docker buildx build{{range $k, $v := $a.args}} --build-arg {{$k}}={{$v}}{{end}} --tag {{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }} --load {{ $dir }}/
+        {{- end }}
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: '{{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }}'
+        image-ref: '{{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }}'
         format: 'table'
         exit-code: 1
         ignore-unfixed: true
@@ -109,7 +116,7 @@ jobs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: '{{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }}'
+        image-ref: '{{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }}'
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
@@ -137,25 +144,31 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
-        {{- if file.Exists (filepath.Join . ".docker-platforms") }}
-        PLATFORMS={{ file.Read (filepath.Join . ".docker-platforms") | strings.TrimSpace }}
+        {{- if file.Exists (filepath.Join $dir ".docker-platforms") }}
+        PLATFORMS={{ file.Read (filepath.Join $dir ".docker-platforms") | strings.TrimSpace }}
         {{- else }}
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
         {{- end }}
 
-        docker buildx build \
+        {{- range $a := $tagargs }}
+
+        docker buildx build{{range $k, $v := $a.args}} --build-arg {{$k}}={{$v}}{{end}} \
           --platform $PLATFORMS \
-          --tag {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
-        docker buildx build \
+          --tag {{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }} --push {{ $dir }}/
+        docker buildx build{{range $k, $v := $a.args}} --build-arg {{$k}}={{$v}}{{end}} \
           --platform $PLATFORMS \
-          --tag hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }} --push {{ . }}/
+          --tag hairyhenderson/{{ $dir }}:{{ `${{ github.sha }}` }} --push {{ $dir }}/
+
+          {{- range $tag := $a.tags}}
 
         docker buildx imagetools create \
-          -t {{ $ghcrns }}/{{ . }}:latest \
-          {{ $ghcrns }}/{{ . }}:{{ `${{ github.sha }}` }}
+          -t {{ $ghcrns }}/{{ $dir }}:{{ $tag }} \
+          {{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }}
         docker buildx imagetools create \
-          -t hairyhenderson/{{ . }}:latest \
-          hairyhenderson/{{ . }}:{{ `${{ github.sha }}` }}
+          -t hairyhenderson/{{ $dir }}:{{ $tag }} \
+          hairyhenderson/{{ $dir }}:{{ `${{ github.sha }}` }}
+          {{- end}}
+        {{- end }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     {{- end }}
 {{- end }}{{ end }}

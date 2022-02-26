@@ -1,3 +1,4 @@
+ARG GO_VERSION=1.17
 FROM vault:1.9.3 AS vault
 FROM consul:1.11.3 AS consul
 FROM docker:20.10 AS docker
@@ -20,10 +21,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.17.7 AS go-junit-report
-RUN go get -u github.com/jstemmer/go-junit-report
+FROM golang:${GO_VERSION} AS go-junit-report
+RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.17.7 AS final
+FROM golang:${GO_VERSION} AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -35,6 +36,7 @@ RUN apt-get update \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		libexpat1 \
+		libsasl2-2 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
