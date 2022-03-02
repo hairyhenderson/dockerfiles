@@ -20,7 +20,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -106,7 +106,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -192,7 +192,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -278,7 +278,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -386,7 +386,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -472,7 +472,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -558,7 +558,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -644,7 +644,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -730,7 +730,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -816,7 +816,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -902,7 +902,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -986,7 +986,7 @@ jobs:
       BASHBREW_LIBRARY: ./library
       BASHBREW_NAMESPACE: hairyhenderson
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: build
