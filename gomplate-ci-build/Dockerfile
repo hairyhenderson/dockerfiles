@@ -37,6 +37,7 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		libexpat1 \
 		libsasl2-2 \
+		linux-libc-dev \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
