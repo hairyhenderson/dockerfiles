@@ -1,4 +1,4 @@
-FROM golang:1.17
+FROM golang:1.18.0
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
