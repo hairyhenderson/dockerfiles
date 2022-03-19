@@ -295,8 +295,7 @@ jobs:
       run: echo ${{ steps.buildx.outputs.platforms }}
     - name: Build (non-main branch)
       run: |
-        docker buildx build --build-arg GO_VERSION=1.17 --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
-        docker buildx build --build-arg GO_VERSION=1.18rc1 --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
+        docker buildx build --build-arg GO_VERSION=1.18 --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Run Trivy vulnerability scanner (table output)
       uses: aquasecurity/trivy-action@master
@@ -340,31 +339,10 @@ jobs:
       run: |
         PLATFORMS=linux/amd64,linux/arm64
 
-        docker buildx build --build-arg GO_VERSION=1.17 \
+        docker buildx build --build-arg GO_VERSION=1.18 \
           --platform $PLATFORMS \
           --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
-        docker buildx build --build-arg GO_VERSION=1.17 \
-          --platform $PLATFORMS \
-          --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
-
-        docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/gomplate-ci-build:1.17 \
-          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
-        docker buildx imagetools create \
-          -t hairyhenderson/gomplate-ci-build:1.17 \
-          hairyhenderson/gomplate-ci-build:${{ github.sha }}
-
-        docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/gomplate-ci-build:latest \
-          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
-        docker buildx imagetools create \
-          -t hairyhenderson/gomplate-ci-build:latest \
-          hairyhenderson/gomplate-ci-build:${{ github.sha }}
-
-        docker buildx build --build-arg GO_VERSION=1.18rc1 \
-          --platform $PLATFORMS \
-          --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
-        docker buildx build --build-arg GO_VERSION=1.18rc1 \
+        docker buildx build --build-arg GO_VERSION=1.18 \
           --platform $PLATFORMS \
           --tag hairyhenderson/gomplate-ci-build:${{ github.sha }} --push gomplate-ci-build/
 
@@ -373,6 +351,13 @@ jobs:
           ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
         docker buildx imagetools create \
           -t hairyhenderson/gomplate-ci-build:1.18 \
+          hairyhenderson/gomplate-ci-build:${{ github.sha }}
+
+        docker buildx imagetools create \
+          -t ghcr.io/hairyhenderson/gomplate-ci-build:latest \
+          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
+        docker buildx imagetools create \
+          -t hairyhenderson/gomplate-ci-build:latest \
           hairyhenderson/gomplate-ci-build:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-jwt:

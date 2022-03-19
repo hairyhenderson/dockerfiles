@@ -1,8 +1,8 @@
-FROM golang:1.17 AS build
+FROM golang:1.18-alpine AS build
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
-RUN CGO_ENABLED=0 go get github.com/dgrijalva/jwt-go/cmd/jwt
+RUN CGO_ENABLED=0 go install github.com/dgrijalva/jwt-go/cmd/jwt@latest
 
 FROM scratch
 
