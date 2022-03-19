@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine as build
+FROM golang:1.18-alpine as build
 
 ENV CGO_ENABLED=0
 RUN go get github.com/docker/swarmkit/cmd/swarm-rafttool

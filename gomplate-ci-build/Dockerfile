@@ -1,4 +1,4 @@
-ARG GO_VERSION=1.17
+ARG GO_VERSION=1.18
 FROM vault:1.9.4 AS vault
 FROM consul:1.11.4 AS consul
 FROM docker:20.10 AS docker

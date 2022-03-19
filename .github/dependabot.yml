@@ -22,13 +22,6 @@ updates:
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/github_changelog_generator"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
   directory: "/golang-air"
   schedule:
     interval: daily
