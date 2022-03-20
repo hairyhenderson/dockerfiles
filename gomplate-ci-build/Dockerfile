@@ -2,7 +2,7 @@ ARG GO_VERSION=1.18
 FROM vault:1.9.4 AS vault
 FROM consul:1.11.4 AS consul
 FROM docker:20.10 AS docker
-FROM golangci/golangci-lint:v1.44.2-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.45.0-alpine AS golangci-lint
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
 
