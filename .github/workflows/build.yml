@@ -52,8 +52,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -138,8 +137,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/figlet:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -224,8 +222,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/golang-air:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -310,8 +307,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -403,8 +399,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/jwt:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -489,8 +484,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/man:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -575,8 +569,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/remarkjs:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -661,8 +654,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/sed:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -747,8 +739,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/socat:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -833,8 +824,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/ssh:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -919,8 +909,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'ghcr.io/hairyhenderson/trx:${{ github.sha }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -983,8 +972,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: ${{ env.IMG_NAME }}
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true

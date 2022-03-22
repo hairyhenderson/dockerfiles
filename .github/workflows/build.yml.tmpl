@@ -39,8 +39,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: {{ "${{ env.IMG_NAME }}" }}
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
@@ -117,8 +116,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: '{{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }}'
-        format: 'template'
-        template: '@/contrib/sarif.tpl'
+        format: 'sarif'
         output: 'trivy-results.sarif'
         exit-code: 1
         ignore-unfixed: true
