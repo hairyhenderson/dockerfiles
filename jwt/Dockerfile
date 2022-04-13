@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine AS build
+FROM golang:1.18.1-alpine AS build
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
