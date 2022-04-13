@@ -7,7 +7,7 @@ FROM docker/buildx-bin:master AS buildx-plugin
 
 
 # Temporarily install it manually, until a 1.18-built image is available (1.45.1 maybe?)
-FROM golang:1.18-alpine AS golangci-lint
+FROM golang:1.18.1-alpine AS golangci-lint
 # FROM golangci/golangci-lint:v1.45.0-alpine AS golangci-lint
 
 # copied from https://github.com/golangci/golangci-lint/blob/master/build/Dockerfile.alpine
