@@ -4,16 +4,7 @@ FROM consul:1.11.4 AS consul
 FROM docker:20.10 AS docker
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
-
-
-# Temporarily install it manually, until a 1.18-built image is available (1.45.1 maybe?)
-FROM golang:1.18-alpine AS golangci-lint
-# FROM golangci/golangci-lint:v1.45.0-alpine AS golangci-lint
-
-# copied from https://github.com/golangci/golangci-lint/blob/master/build/Dockerfile.alpine
-RUN apk --no-cache add gcc musl-dev git mercurial
-RUN CGO_ENABLED=0 go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.45.0
-RUN cp /go/bin/golangci-lint /usr/bin/golangci-lint
+FROM golangci/golangci-lint:v1.45.2-alpine AS golangci-lint
 
 FROM alpine:3.15 AS cc-test-reporter
 
@@ -40,13 +31,12 @@ LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfi
 RUN mkdir -p /tmp/test-results
 
 RUN apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive dpkg --purge libsvn1 subversion \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		libexpat1 \
-		libsasl2-2 \
-		linux-libc-dev \
+		zlib1g \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
