@@ -15,3 +15,5 @@ CVE-2020-29652
 CVE-2021-43816
 # fixed in containerd v1.5.10
 CVE-2022-23648
+# bashbrew & gomplate - not relevant in either
+CVE-2022-27191
