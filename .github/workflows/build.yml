@@ -59,7 +59,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -144,7 +144,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -229,7 +229,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -314,7 +314,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -406,7 +406,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -491,7 +491,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -576,7 +576,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -661,7 +661,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -746,7 +746,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -831,7 +831,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -916,7 +916,7 @@ jobs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
@@ -977,7 +977,7 @@ jobs:
         exit-code: 1
         ignore-unfixed: true
     - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
