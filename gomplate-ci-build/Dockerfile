@@ -36,7 +36,8 @@ RUN apt-get update \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		zlib1g \
+		gzip>=1.9-3+deb10u1 \
+		liblzma5>=5.2.4-1+deb10u1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
