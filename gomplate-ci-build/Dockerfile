@@ -4,7 +4,7 @@ FROM consul:1.12.0 AS consul
 FROM docker:20.10 AS docker
 FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
-FROM golangci/golangci-lint:v1.45.2-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.46.0-alpine AS golangci-lint
 
 FROM alpine:3.15 AS cc-test-reporter
 
