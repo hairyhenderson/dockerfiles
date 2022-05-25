@@ -6,7 +6,7 @@ FROM hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
 FROM golangci/golangci-lint:v1.46.2-alpine AS golangci-lint
 
-FROM alpine:3.15 AS cc-test-reporter
+FROM alpine:3.16 AS cc-test-reporter
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
@@ -36,8 +36,9 @@ RUN apt-get update \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		gzip>=1.9-3+deb10u1 \
-		liblzma5>=5.2.4-1+deb10u1 \
+		libldap-2.4-2>=2.4.57+dfsg-3+deb11u1 \
+		openssl>=1.1.1n-0+deb11u2 \
+		libssl1.1>=1.1.1n-0+deb11u2 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
