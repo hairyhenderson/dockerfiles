@@ -17,3 +17,5 @@ CVE-2021-43816
 CVE-2022-23648
 # bashbrew & gomplate - not relevant in either
 CVE-2022-27191
+# fixed in runc 1.1.2
+CVE-2022-29162
