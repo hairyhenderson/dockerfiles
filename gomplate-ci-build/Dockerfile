@@ -1,5 +1,5 @@
 ARG GO_VERSION=1.18
-FROM vault:1.10.3 AS vault
+FROM vault:1.10.4 AS vault
 FROM consul:1.12.2 AS consul
 FROM docker:20.10 AS docker
 FROM hairyhenderson/bashbrew:latest AS bashbrew
@@ -39,6 +39,8 @@ RUN apt-get update \
 		libldap-2.4-2>=2.4.57+dfsg-3+deb11u1 \
 		openssl>=1.1.1n-0+deb11u2 \
 		libssl1.1>=1.1.1n-0+deb11u2 \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+		linux-libc-dev>=5.10.120-1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
