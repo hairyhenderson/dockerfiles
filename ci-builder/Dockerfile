@@ -30,7 +30,9 @@ LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfi
 
 RUN mkdir -p /tmp/test-results
 
-RUN apk --no-cache add unzip jq
+RUN apk --no-cache add \
+	unzip jq git \
+	build-base
 
 COPY --from=golangci-lint /usr/bin/golangci-lint /bin/
 COPY --from=vault /bin/vault /bin/vault
