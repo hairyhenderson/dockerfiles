@@ -17,6 +17,10 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 	trivy i --exit-code 1 --ignore-unfixed --vuln-type os,library --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL $(shell cat $<)
 	@cat $< > $@
 
+%/image.pushed: %/image.tag
+	docker push $(shell cat $<)
+	@echo "$(call dockerimage,$@)" > $@
+
 clean:
 	-@rm */image.iid */image.tag */image.scanned
 
