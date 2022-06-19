@@ -1,21 +1,4 @@
-# k8s.io/client-go vuln - false positive due to semver reset in the k8s client (v0.16.9 is actually newer than 1.15.4)...
-CVE-2020-8565
-# consul v1.11.1
-CVE-2021-38561
-# vault v1.9.2 - probably a false positive due to semver differences
-CVE-2018-17572
-# vault - influx dep which isn't used
-CVE-2019-20933
 # docker-buildx v0.7.1
 CVE-2021-41092
-# cc-test-reporter depencency vuln to do with ssh - not relevant
-CVE-2020-29652
-# bashbrew dep - containerd v1.5.8 (will be fixed by https://github.com/docker-library/bashbrew/pull/42)
-# fixed in containerd v1.5.9
-CVE-2021-43816
-# fixed in containerd v1.5.10
-CVE-2022-23648
-# bashbrew & gomplate - not relevant in either
-CVE-2022-27191
 # fixed in runc 1.1.2
 CVE-2022-29162
