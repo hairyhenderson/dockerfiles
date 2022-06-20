@@ -1,4 +1,4 @@
-FROM hairyhenderson/gomplate:v3.11.0 AS gomplate
+FROM hairyhenderson/gomplate:v3.11.1 AS gomplate
 
 FROM nginx:1.22-alpine
 
