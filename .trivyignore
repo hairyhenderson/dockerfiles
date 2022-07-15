@@ -2,3 +2,6 @@
 CVE-2021-41092
 # fixed in runc 1.1.2
 CVE-2022-29162
+# OpenSSL vuln, fixed in 1.1.1q, but not relevant as I don't built anything that
+# uses OpenSSL.
+CVE-2022-2097
