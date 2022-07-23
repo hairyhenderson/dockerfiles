@@ -1,6 +1,6 @@
 FROM hairyhenderson/gomplate:v3.11.1 AS gomplate
 
-FROM nginx:1.23.0-alpine
+FROM nginx:1.23.1-alpine
 
 ENV REMARK_VER 0.14.1
 ENV WEBROOT /usr/share/nginx/html
