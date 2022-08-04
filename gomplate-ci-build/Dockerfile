@@ -1,5 +1,4 @@
-ARG GO_VERSION=1.18
-FROM vault:1.11.1 AS vault
+FROM vault:1.11.2 AS vault
 FROM consul:1.12 AS consul
 FROM docker:20.10 AS docker
 FROM hairyhenderson/bashbrew:latest AS bashbrew
@@ -21,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:${GO_VERSION} AS go-junit-report
+FROM golang:1.19 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:${GO_VERSION} AS final
+FROM golang:1.19 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
@@ -36,11 +35,7 @@ RUN apt-get update \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		libldap-2.4-2>=2.4.57+dfsg-3+deb11u1 \
-		openssl>=1.1.1n-0+deb11u2 \
-		libssl1.1>=1.1.1n-0+deb11u2 \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		linux-libc-dev>=5.10.120-1 \
+		curl>=7.74.0-1.3+deb11u2 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
