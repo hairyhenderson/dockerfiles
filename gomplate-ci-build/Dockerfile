@@ -36,6 +36,8 @@ RUN apt-get update \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		curl>=7.74.0-1.3+deb11u2 \
+		libgnutls30>=3.7.1-5+deb11u2 \
+		libtirpc3>=1.3.1-1+deb11u1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
