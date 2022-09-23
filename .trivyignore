@@ -1,7 +1,5 @@
 # docker-buildx v0.7.1
 CVE-2021-41092
-# fixed in runc 1.1.2
-CVE-2022-29162
 # bashbrew - this is a golang.org/x/crypto/ssh bug, but bashbrew doesn't use that
 # code at all so this is not relevant
 CVE-2022-27191
@@ -10,9 +8,14 @@ CVE-2022-27191
 CVE-2021-44716
 # consul 1.12 - bug not relevant in this usage
 CVE-2022-21698
-# consul 1.12 - bug not relevant in this usage
 CVE-2021-38561
 # cc-test-reporter - golang.org/x/crypto/ssh bugs, not relevant here
 CVE-2020-29652
 CVE-2020-7919
 CVE-2020-9283
+# irrelevant for this usage (it's about HTTP servers)
+CVE-2022-27664
+# golang.org/x/crypto/ssh bug, not relevant here
+CVE-2021-43565
+# yaml bug, not relevant here
+CVE-2022-28948
