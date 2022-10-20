@@ -19,3 +19,5 @@ CVE-2022-27664
 CVE-2021-43565
 # yaml bug, not relevant here
 CVE-2022-28948
+# upstream in a bunch of binaries
+CVE-2022-32149
