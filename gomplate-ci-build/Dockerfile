@@ -35,8 +35,7 @@ RUN apt-get update \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		curl>=7.74.0-1.3+deb11u2 \
-		zlib1g>=1:1.2.11.dfsg-2+deb11u2 \
+		linux-libc-dev>=5.10.149-1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 

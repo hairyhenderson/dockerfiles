@@ -28,7 +28,7 @@ RUN apt-get update && \
     libortp13 \
     libasound2-plugins alsa-utils opus-tools \
     zlib1g \
-    gzip>=1.9-3+deb10u1 \
-    liblzma5>=5.2.4-1+deb10u1 \
+    libc6>=2.28-10+deb10u2 \
+    libc-bin>=2.28-10+deb10u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

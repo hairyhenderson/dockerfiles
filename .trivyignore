@@ -21,3 +21,5 @@ CVE-2021-43565
 CVE-2022-28948
 # upstream in a bunch of binaries
 CVE-2022-32149
+# libksba vuln, not relevant here
+CVE-2022-3515
