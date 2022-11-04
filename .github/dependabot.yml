@@ -84,10 +84,3 @@ updates:
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/trx"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
