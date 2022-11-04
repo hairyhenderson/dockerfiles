@@ -1,6 +1,6 @@
 FROM hairyhenderson/gomplate:v3 AS gomplate
 
-FROM nginx:1.23.1-alpine
+FROM nginx:1.23.2-alpine
 
 ENV REMARK_VER 0.14.1
 ENV WEBROOT /usr/share/nginx/html
@@ -11,7 +11,7 @@ ENV HIGHLIGHT_STYLE default
 
 # updates to workaround CVEs
 RUN apk add -u --no-cache \
-    pcre2>=10.40-r0 # CVE-2022-1586, CVE-2022-1587
+    curl>=7.83.1-r4 # CVE-2022-42915 CVE-2022-42916
 
 ADD https://gnab.github.io/remark/downloads/remark-${REMARK_VER}.min.js /usr/share/nginx/html/
 RUN chmod a+r /usr/share/nginx/html/remark-${REMARK_VER}.min.js
