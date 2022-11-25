@@ -1,11 +1,11 @@
 FROM vault:1.12.1 AS vault
-FROM consul:1.13.3 AS consul
+FROM consul:1.14.1 AS consul
 FROM docker:20.10 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
 FROM golangci/golangci-lint:v1.50.1-alpine AS golangci-lint
 
-FROM alpine:3.16 AS cc-test-reporter
+FROM alpine:3.17 AS cc-test-reporter
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
