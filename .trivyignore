@@ -15,6 +15,7 @@ CVE-2020-7919
 CVE-2020-9283
 # irrelevant for this usage (it's about HTTP servers)
 CVE-2022-27664
+CVE-2022-41721
 # golang.org/x/crypto/ssh bug, not relevant here
 CVE-2021-43565
 # yaml bug, not relevant here
