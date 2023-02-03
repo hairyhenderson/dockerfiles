@@ -13,7 +13,7 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 	docker tag $(shell cat $<) $(call dockerimage,$@)
 	@echo $(call dockerimage,$@) > $@
 
-%/image.scanned: %/image.tag
+%/image.scanned: %/image.tag .trivyignore
 	trivy i --exit-code 1 --ignore-unfixed --security-checks vuln --vuln-type os,library --severity HIGH,CRITICAL $(shell cat $<)
 	@cat $< > $@
 

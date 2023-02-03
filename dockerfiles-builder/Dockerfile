@@ -1,5 +1,5 @@
 FROM hairyhenderson/gomplate:v3 AS gomplate
-FROM hairyhenderson/bashbrew:latest AS bashbrew
+FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:23.0 AS docker
 FROM mikefarah/yq:4 AS yq
 

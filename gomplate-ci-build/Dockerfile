@@ -1,9 +1,9 @@
 FROM vault:1.12.2 AS vault
-FROM consul:1.14.3 AS consul
-FROM docker:20.10 AS docker
+FROM consul:1.14.4 AS consul
+FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
-FROM golangci/golangci-lint:v1.50.1-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.51-alpine AS golangci-lint
 
 FROM alpine:3.17 AS cc-test-reporter
 
@@ -35,7 +35,11 @@ RUN apt-get update \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		libexpat1>=2.2.10-2+deb11u5 \
+		curl>=7.74.0-1.3+deb11u5 \
+		libcurl3-gnutls>=7.74.0-1.3+deb11u5 \
+		git>=1:2.30.2-1+deb11u1 \
+		git-man>=1:2.30.2-1+deb11u1 \
+		linux-libc-dev>=5.10.162-1 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
