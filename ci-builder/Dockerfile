@@ -1,6 +1,6 @@
 FROM vault:1.12.2 AS vault
 FROM consul:1.14.3 AS consul
-FROM docker:20.10 AS docker
+FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:master AS buildx-plugin
 FROM golangci/golangci-lint:v1.50.1-alpine AS golangci-lint
