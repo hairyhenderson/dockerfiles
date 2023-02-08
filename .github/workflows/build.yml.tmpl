@@ -20,9 +20,9 @@ jobs:
   {{- if $bashbrewBuild }}
   docker-build-{{ $dir }}:
     name: docker build {{ $dir }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
-      image: hairyhenderson/dockerfiles-builder:latest
+      image: ghcr.io/hairyhenderson/dockerfiles-builder:latest
     env:
       BASHBREW_LIBRARY: ./library
       BASHBREW_NAMESPACE: hairyhenderson
@@ -73,7 +73,7 @@ jobs:
   {{- end }}
   docker-build-{{ $dir }}:
     name: docker build {{ $dir }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -89,9 +89,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.2.1
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
