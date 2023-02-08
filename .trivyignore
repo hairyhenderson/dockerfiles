@@ -13,3 +13,5 @@ CVE-2022-41721
 CVE-2021-43565
 # gomplate vuln - not relevant
 CVE-2022-32149
+# OpenSSL bug, not relevant (to do with X.400)
+CVE-2023-0286

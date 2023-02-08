@@ -11,7 +11,7 @@ on:
 jobs:
   docker-build-ci-builder:
     name: docker build ci-builder
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -27,9 +27,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -97,7 +97,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -113,9 +113,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -183,7 +183,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-figlet:
     name: docker build figlet
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -199,9 +199,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -269,7 +269,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-golang-air:
     name: docker build golang-air
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -285,9 +285,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -355,7 +355,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -371,9 +371,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -441,7 +441,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-jwt:
     name: docker build jwt
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -457,9 +457,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -527,7 +527,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-man:
     name: docker build man
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -543,9 +543,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -613,7 +613,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-remarkjs:
     name: docker build remarkjs
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -629,9 +629,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -699,7 +699,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-sed:
     name: docker build sed
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -715,9 +715,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -785,7 +785,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-socat:
     name: docker build socat
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -801,9 +801,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -871,7 +871,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-ssh:
     name: docker build ssh
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -887,9 +887,9 @@ jobs:
       uses: docker/setup-qemu-action@v2.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v2.4.0
+      uses: docker/setup-buildx-action@v2.4.1
       with:
-        version: v0.7.0
+        version: v0.10.2
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
