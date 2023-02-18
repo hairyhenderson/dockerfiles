@@ -2,7 +2,7 @@ FROM vault:1.12.3 AS vault
 FROM consul:1.14.4 AS consul
 FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.10.2 AS buildx-plugin
+FROM docker/buildx-bin:0.10.3 AS buildx-plugin
 FROM golangci/golangci-lint:v1.51.1-alpine AS golangci-lint
 
 FROM alpine:3.17 AS cc-test-reporter
@@ -32,6 +32,9 @@ RUN mkdir -p /tmp/test-results
 RUN apk --no-cache add \
 	unzip jq git \
 	build-base
+
+ENV DOCKER_BUILDKIT=1
+ENV GOFLAGS=-buildvcs=false
 
 COPY --from=golangci-lint /usr/bin/golangci-lint /bin/
 COPY --from=vault /bin/vault /bin/vault

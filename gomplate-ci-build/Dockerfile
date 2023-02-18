@@ -43,6 +43,9 @@ RUN apt-get update \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
+ENV DOCKER_BUILDKIT=1
+ENV GOFLAGS=-buildvcs=false
+
 COPY --from=golangci-lint /usr/bin/golangci-lint /bin/
 COPY --from=vault /bin/vault /bin/vault
 COPY --from=consul /bin/consul /bin/consul
