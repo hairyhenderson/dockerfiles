@@ -1,7 +1,7 @@
 FROM hairyhenderson/gomplate:v3 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:23.0 AS docker
-FROM docker/buildx-bin:0.10.2 AS buildx-plugin
+FROM docker/buildx-bin:0.10.3 AS buildx-plugin
 FROM mikefarah/yq:4 AS yq
 
 FROM alpine:3.17 AS runtime
@@ -16,5 +16,6 @@ COPY --from=buildx-plugin /buildx /usr/libexec/docker/cli-plugins/docker-buildx
 COPY --from=yq /usr/bin/yq /usr/bin/yq
 
 ENV DOCKER_BUILDKIT=1
+ENV GOFLAGS=-buildvcs=false
 
 RUN ln -fs /bin/bash /bin/sh
