@@ -1,3 +1,4 @@
+ARG GO_VERSION=1.20
 FROM vault:1.12.3 AS vault
 FROM consul:1.14.4 AS consul
 FROM docker:23.0 AS docker
@@ -20,10 +21,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.20 AS go-junit-report
+FROM golang:${GO_VERSION} AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.20 AS final
+FROM golang:${GO_VERSION} AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
