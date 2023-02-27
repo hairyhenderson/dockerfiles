@@ -31,13 +31,14 @@ LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfi
 RUN mkdir -p /tmp/test-results
 
 RUN apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive dpkg --purge libsvn1 subversion \
+	&& DEBIAN_FRONTEND=noninteractive dpkg --purge libsvn1 subversion libaprutil1 libserf-1-1 \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		unzip \
 		jq \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		curl>=7.74.0-1.3+deb11u5 \
 		libcurl3-gnutls>=7.74.0-1.3+deb11u5 \
+		libgnutls30>=3.7.1-5+deb11u3 \
 		git>=1:2.30.2-1+deb11u1 \
 		git-man>=1:2.30.2-1+deb11u1 \
 		linux-libc-dev>=5.10.162-1 \
