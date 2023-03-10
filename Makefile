@@ -21,8 +21,10 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 	docker push $(shell cat $<)
 	@echo "$(call dockerimage,$@)" > $@
 
+scan: $(patsubst %/Dockerfile,%/image.scanned,$(wildcard */Dockerfile))
+
 clean:
-	-@rm */image.iid */image.tag */image.scanned
+	-@rm */image.iid */image.tag */image.scanned */image.pushed
 
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.* */Dockerfile
 	@gomplate -c dir=./ -f $< -o $@
@@ -32,6 +34,6 @@ clean:
 
 gen: .github/workflows/build.yml .github/dependabot.yml
 
-.PHONY: clean
+.PHONY: clean scan
 .DELETE_ON_ERROR:
 .SECONDARY:
