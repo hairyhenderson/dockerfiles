@@ -1,17 +1,15 @@
-# bashbrew - this is a golang.org/x/crypto/ssh bug, but bashbrew doesn't use that
-# code at all so this is not relevant
-CVE-2022-27191
 # consul 1.12 - bug not relevant in this usage
 CVE-2022-21698
 # cc-test-reporter - golang.org/x/crypto/ssh bugs, not relevant here
 CVE-2020-29652
 CVE-2020-7919
 CVE-2020-9283
+CVE-2022-27191
 # irrelevant for this usage (it's about HTTP servers)
 CVE-2022-41721
 # golang.org/x/crypto/ssh bug, not relevant here
 CVE-2021-43565
-# gomplate vuln - not relevant
-CVE-2022-32149
-# OpenSSL bug, not relevant (to do with X.400)
-CVE-2023-0286
+# buildx vuln due to containerd being out of date - not relevant here
+CVE-2023-25173
+# buildx & consul vulns - not relevant here
+CVE-2022-41723

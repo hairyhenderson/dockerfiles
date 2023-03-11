@@ -1,9 +1,9 @@
 ARG GO_VERSION=1.20
-FROM vault:1.12.3 AS vault
-FROM consul:1.15.0 AS consul
+FROM vault:1.13.0 AS vault
+FROM consul:1.15.1 AS consul
 FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.10.3 AS buildx-plugin
+FROM docker/buildx-bin:0.10.4 AS buildx-plugin
 FROM golangci/golangci-lint:v1.51.2-alpine AS golangci-lint
 
 FROM alpine:3.17 AS cc-test-reporter
@@ -42,6 +42,7 @@ RUN apt-get update \
 		git>=1:2.30.2-1+deb11u1 \
 		git-man>=1:2.30.2-1+deb11u1 \
 		linux-libc-dev>=5.10.162-1 \
+		libapr1>=1.7.0-6+deb11u2 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
