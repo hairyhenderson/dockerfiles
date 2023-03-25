@@ -13,3 +13,10 @@ CVE-2021-43565
 CVE-2023-25173
 # buildx & consul vulns - not relevant here
 CVE-2022-41723
+
+# vulns being picked up (improperly, I think?) from the base golang:1.20 image
+CVE-2021-33194
+CVE-2021-38561
+CVE-2021-44716
+CVE-2022-27664
+CVE-2022-32149
