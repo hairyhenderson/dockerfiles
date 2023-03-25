@@ -4,7 +4,7 @@ FROM consul:1.15.1 AS consul
 FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.10.4 AS buildx-plugin
-FROM golangci/golangci-lint:v1.52.0-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.52.1-alpine AS golangci-lint
 
 FROM alpine:3.17 AS cc-test-reporter
 
@@ -35,14 +35,6 @@ RUN apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
 		unzip \
 		jq \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-		curl>=7.74.0-1.3+deb11u5 \
-		libcurl3-gnutls>=7.74.0-1.3+deb11u5 \
-		libgnutls30>=3.7.1-5+deb11u3 \
-		git>=1:2.30.2-1+deb11u1 \
-		git-man>=1:2.30.2-1+deb11u1 \
-		linux-libc-dev>=5.10.162-1 \
-		libapr1>=1.7.0-6+deb11u2 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
