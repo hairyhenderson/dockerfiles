@@ -1,5 +1,5 @@
 ARG GO_VERSION=1.20
-FROM vault:1.13.1 AS vault
+FROM vault:1.13.2 AS vault
 FROM consul:1.15.2 AS consul
 FROM docker:23.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
