@@ -6,7 +6,7 @@ FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.10.4 AS buildx-plugin
 FROM golangci/golangci-lint:v1.52.2-alpine AS golangci-lint
 
-FROM alpine:3.17 AS cc-test-reporter
+FROM alpine:3.18 AS cc-test-reporter
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
