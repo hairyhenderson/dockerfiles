@@ -2,7 +2,7 @@ FROM vault:1.13.2 AS vault
 FROM consul:1.15.2 AS consul
 FROM docker:24.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.10.4 AS buildx-plugin
+FROM docker/buildx-bin:0.10.5 AS buildx-plugin
 FROM golangci/golangci-lint:v1.52.2-alpine AS golangci-lint
 
 FROM alpine:3.18 AS cc-test-reporter
