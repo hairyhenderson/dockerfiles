@@ -16,6 +16,7 @@ RUN make
 
 FROM alpine:3
 
+RUN apk --no-cache upgrade libssl3 libcrypto3
 COPY --from=builder /pi-blaster/pi-blaster /
 
 CMD ["/pi-blaster", "-D"]

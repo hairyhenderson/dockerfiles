@@ -1,18 +1,5 @@
-# consul 1.12 - bug not relevant in this usage
-CVE-2022-21698
-# cc-test-reporter - golang.org/x/crypto/ssh bugs, not relevant here
-CVE-2020-29652
-CVE-2020-7919
-CVE-2020-9283
-CVE-2022-27191
 # irrelevant for this usage (it's about HTTP servers)
 CVE-2022-41721
-# golang.org/x/crypto/ssh bug, not relevant here
-CVE-2021-43565
-# buildx vuln due to containerd being out of date - not relevant here
-CVE-2023-25173
-# buildx & consul vulns - not relevant here
-CVE-2022-41723
 
 # vulns being picked up (improperly, I think?) from the base golang:1.20 image
 CVE-2021-33194
@@ -20,6 +7,21 @@ CVE-2021-38561
 CVE-2021-44716
 CVE-2022-27664
 CVE-2022-32149
+
+# cc-test-reporter - golang.org/x/crypto/ssh bugs, not relevant here
+CVE-2020-29652
+CVE-2020-7919
+CVE-2020-9283
+CVE-2022-27191
+
+# golang.org/x/crypto/ssh bug, not relevant here
+CVE-2021-43565
+
+# buildx vuln - fixed upstream, no release yet
+CVE-2023-2253
+
+# buildx & consul vulns - not relevant here
+CVE-2022-41723
 
 # bashbrew - github.com/opencontainers/runc vulns - not relevant here
 CVE-2023-27561
