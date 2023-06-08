@@ -24,7 +24,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -110,7 +110,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -196,7 +196,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -282,7 +282,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -368,7 +368,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -476,7 +476,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -562,7 +562,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -648,7 +648,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -734,7 +734,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
@@ -820,7 +820,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2.1.0
+      uses: docker/setup-qemu-action@v2.2.0
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v2.5.0
