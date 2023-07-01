@@ -26,3 +26,6 @@ CVE-2022-41723
 # bashbrew - github.com/opencontainers/runc vulns - not relevant here
 CVE-2023-27561
 CVE-2023-28642
+
+# vault - github.com/snowflakedb/gosnowflake vuln - not relevant
+CVE-2023-34231
