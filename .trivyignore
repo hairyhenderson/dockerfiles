@@ -29,3 +29,6 @@ CVE-2023-28642
 
 # vault - github.com/snowflakedb/gosnowflake vuln - not relevant
 CVE-2023-34231
+
+# bashbrew & gomplate - google.golang.org/grpc vuln - not relevant
+CVE-2023-32731
