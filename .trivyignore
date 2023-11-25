@@ -37,6 +37,7 @@ CVE-2022-48174
 
 # docker-buildx - otel vuln - not relevant
 CVE-2023-45142
+CVE-2023-47108
 
 # rapid reset - most Go bins
 CVE-2023-39325
