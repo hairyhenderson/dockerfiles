@@ -41,3 +41,8 @@ CVE-2023-47108
 
 # rapid reset - most Go bins
 CVE-2023-39325
+
+# bashbrew - not relevant
+GHSA-9763-4f94-gfch
+CVE-2023-49569
+CVE-2023-49568
