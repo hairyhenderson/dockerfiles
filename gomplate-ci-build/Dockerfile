@@ -3,7 +3,7 @@ FROM consul:1.15.4 AS consul
 FROM docker:25.0 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.12.1 AS buildx-plugin
-FROM golangci/golangci-lint:v1.55.2-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.56.2-alpine AS golangci-lint
 
 FROM alpine:3.19 AS cc-test-reporter
 
@@ -20,10 +20,10 @@ RUN set -eux; \
 	esac; \
 	chmod +x /bin/cc-test-reporter
 
-FROM golang:1.21 AS go-junit-report
+FROM golang:1.22 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.21 AS final
+FROM golang:1.22 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
