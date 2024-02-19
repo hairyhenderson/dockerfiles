@@ -1,8 +1,8 @@
-FROM golang:1.21 AS build
+FROM golang:1.22 AS build
 
 RUN go install github.com/cosmtrek/air@latest
 
-FROM golang:1.21 AS runtime
+FROM golang:1.22 AS runtime
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
