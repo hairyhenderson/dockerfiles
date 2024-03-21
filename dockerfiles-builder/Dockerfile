@@ -1,6 +1,6 @@
 FROM ghcr.io/hairyhenderson/gomplate:v3 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker:25.0 AS docker
+FROM docker:26.0 AS docker
 FROM docker/buildx-bin:0.13.0 AS buildx-plugin
 FROM mikefarah/yq:4 AS yq
 
