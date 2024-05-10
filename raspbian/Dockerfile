@@ -1,4 +1,4 @@
-FROM debian:11 AS build
+FROM debian:12 AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
