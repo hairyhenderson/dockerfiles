@@ -3,7 +3,7 @@ FROM consul:1.15.4 AS consul
 FROM docker:26.1 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.14.0 AS buildx-plugin
-FROM golangci/golangci-lint:v1.58.0-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.58.1-alpine AS golangci-lint
 
 FROM alpine:3.19 AS cc-test-reporter
 
