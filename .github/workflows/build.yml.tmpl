@@ -15,57 +15,8 @@ jobs:
 {{ $hasDockerfile := file.Exists (filepath.Join $dir "Dockerfile") -}}
 {{ $notHidden := not (strings.HasPrefix "." .) -}}
 {{ $noIgnore := not (file.Exists (filepath.Join $dir ".ignore")) -}}
-{{ $bashbrewBuild := file.Exists (filepath.Join "library" .) -}}
+{{ $hasNeeds := file.Exists (filepath.Join $dir ".needs") -}}
 {{ if and $isDir $hasDockerfile $notHidden $noIgnore }}
-  {{- if $bashbrewBuild }}
-  docker-build-{{ $dir }}:
-    name: docker build {{ $dir }}
-    runs-on: ubuntu-22.04
-    container:
-      image: ghcr.io/hairyhenderson/dockerfiles-builder:latest
-    env:
-      BASHBREW_LIBRARY: ./library
-      BASHBREW_NAMESPACE: hairyhenderson
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: build
-      run: |
-        bashbrew build {{ $dir }}
-        img=$(bashbrew ls {{ $dir }} --uniq | head -n1)
-        echo "IMG_NAME=${img}" >> $GITHUB_ENV
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: {{ "${{ env.IMG_NAME }}" }}
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        exit-code: 1
-        ignore-unfixed: true
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: 'trivy-results.sarif'
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: tag
-      run: bashbrew tag --target-namespace {{ $ghcrns }} {{ $dir }}
-    - name: login
-      run: |
-        echo {{"${{ secrets.GHCR_TOKEN }}"}} | docker login {{ $ghcrhost }} --username {{ "${{ github.actor }}" }} --password-stdin
-        echo {{"${{ secrets.DOCKERHUB_TOKEN }}"}} | docker login --username {{ "${{ github.actor }}" }} --password-stdin
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
-    - name: push
-      run: |
-        bashbrew push --dry-run {{ $dir }}
-        bashbrew push --dry-run --target-namespace {{ $ghcrns }} {{ $dir }}
-      if: github.ref != 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson'
-    - name: push
-      run: |
-        bashbrew push {{ $dir }}
-        bashbrew push --target-namespace {{ $ghcrns }} {{ $dir }}
-      if: github.ref == 'refs/heads/main' && github.repository == 'hairyhenderson/dockerfiles'
-  {{- else }}
   {{- $tagargsfile := filepath.Join $dir ".tag-args"}}
   {{- $tagargs := jsonArray `[{"tags": ["latest"], "args": {}}]` }}
   {{- if file.Exists $tagargsfile }}
@@ -73,6 +24,14 @@ jobs:
   {{- end }}
   docker-build-{{ $dir }}:
     name: docker build {{ $dir }}
+    {{- if $hasNeeds }}
+    needs:
+    {{- /** read through the .needs file, split by comma, and prefix each name with docker-build- */}}
+    {{- $needs := (file.Read (filepath.Join $dir ".needs")) | strings.TrimSpace | strings.Split "," }}
+    {{- range $i, $n := $needs }}
+    - docker-build-{{ $n }}
+    {{- end }}
+    {{- end }}
     runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
@@ -176,4 +135,4 @@ jobs:
         {{- end }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     {{- end }}
-{{- end }}{{ end }}
+{{- end }}

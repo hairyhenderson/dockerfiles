@@ -103,6 +103,8 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-ci-builder:
     name: docker build ci-builder
+    needs:
+    - docker-build-bashbrew
     runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
@@ -195,6 +197,8 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
+    needs:
+    - docker-build-bashbrew
     runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
@@ -379,6 +383,8 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
+    needs:
+    - docker-build-bashbrew
     runs-on: ubuntu-22.04
     env:
       DOCKER_BUILDKIT: 1
