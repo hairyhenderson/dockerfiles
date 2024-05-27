@@ -3,7 +3,7 @@ FROM hashicorp/consul:1.18.1 AS consul
 FROM docker:26.1 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.14.0 AS buildx-plugin
-FROM golangci/golangci-lint:v1.58.1-alpine AS golangci-lint
+FROM golangci/golangci-lint:v1.59.0-alpine AS golangci-lint
 
 FROM golang:1.22 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
