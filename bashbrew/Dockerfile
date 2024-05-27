@@ -1,10 +1,6 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
-
-RUN apk --no-cache upgrade \
-	libssl3 \
-	libcrypto3
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
@@ -17,8 +13,6 @@ RUN set -eux; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
 	wget -O /bin/bashbrew https://doi-janky.infosiftr.net/job/bashbrew/job/master/lastSuccessfulBuild/artifact/bashbrew-${binArch}; \
-	wget -O /bin/manifest-tool https://doi-janky.infosiftr.net/job/bashbrew/job/master/lastSuccessfulBuild/artifact/manifest-tool-${binArch}; \
-	chmod 755 /bin/bashbrew; \
-	chmod 755 /bin/manifest-tool
+	chmod 755 /bin/bashbrew
 
 CMD [ "/bin/bashbrew" ]
