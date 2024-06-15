@@ -1,4 +1,4 @@
-FROM hashicorp/vault:1.16.3 AS vault
+FROM hashicorp/vault:1.17.0 AS vault
 FROM hashicorp/consul:1.19.0 AS consul
 FROM docker:26.1 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
