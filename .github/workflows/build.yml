@@ -27,7 +27,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -121,7 +121,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -215,7 +215,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -307,7 +307,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -401,7 +401,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -493,7 +493,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -585,7 +585,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -677,7 +677,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -769,7 +769,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
@@ -861,7 +861,7 @@ jobs:
       uses: docker/setup-qemu-action@v3.1.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.3.0
+      uses: docker/setup-buildx-action@v3.4.0
       with:
         version: v0.12.0
         driver-opts: |
