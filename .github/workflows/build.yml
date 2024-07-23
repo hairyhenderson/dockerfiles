@@ -71,14 +71,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -165,14 +165,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -259,14 +259,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -351,14 +351,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -445,14 +445,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -537,14 +537,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -629,14 +629,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -721,14 +721,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -813,14 +813,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -905,14 +905,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.2.0
+      uses: docker/login-action@v3.3.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
