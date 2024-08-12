@@ -2,7 +2,7 @@ FROM hashicorp/vault:1.17.2 AS vault
 FROM hashicorp/consul:1.19.1 AS consul
 FROM docker:27.1 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.16.1 AS buildx-plugin
+FROM docker/buildx-bin:0.16.2 AS buildx-plugin
 FROM golangci/golangci-lint:v1.59.1-alpine AS golangci-lint
 
 FROM golang:1.22 AS go-junit-report
