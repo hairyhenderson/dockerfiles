@@ -5,10 +5,10 @@ FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.16.2 AS buildx-plugin
 FROM golangci/golangci-lint:v1.60.3-alpine AS golangci-lint
 
-FROM golang:1.22 AS go-junit-report
+FROM golang:1.23 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.22 AS final
+FROM golang:1.23 AS final
 
 LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
 
