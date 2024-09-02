@@ -24,7 +24,9 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 scan: $(patsubst %/Dockerfile,%/image.scanned,$(wildcard */Dockerfile))
 
 clean:
-	-@rm */image.iid */image.tag */image.scanned */image.pushed
+	@rm -f .github/workflows/build.yml
+	@rm -f .github/dependabot.yml
+	-@rm -f */image.iid */image.tag */image.scanned */image.pushed
 
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.* */Dockerfile
 	@gomplate -c dir=./ -f $< -o $@
