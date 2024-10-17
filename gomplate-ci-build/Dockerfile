@@ -1,5 +1,5 @@
 FROM hashicorp/vault:1.18.0 AS vault
-FROM hashicorp/consul:1.19.2 AS consul
+FROM hashicorp/consul:1.20.0 AS consul
 FROM docker:27.3 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.17.1 AS buildx-plugin
