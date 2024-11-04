@@ -10,7 +10,7 @@ RUN go install github.com/jstemmer/go-junit-report@latest
 
 FROM golang:1.23 AS final
 
-LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
 RUN mkdir -p /tmp/test-results
 

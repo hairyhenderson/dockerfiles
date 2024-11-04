@@ -1,6 +1,6 @@
 FROM alpine:3.20
 
-LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
 RUN set -eux; \
 	apkArch="$(apk --print-arch)"; \
