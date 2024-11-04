@@ -6,7 +6,7 @@ FROM mikefarah/yq:4 AS yq
 
 FROM alpine:3.20 AS runtime
 
-LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
 RUN apk add --no-cache make bash git curl ca-certificates
 

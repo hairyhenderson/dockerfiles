@@ -39,31 +39,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -133,31 +138,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/ci-builder:${{ github.sha }} --load ci-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -227,31 +237,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -319,31 +334,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/figlet:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/figlet:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/figlet:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/figlet:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -413,31 +433,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -505,31 +530,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/jwt:${{ github.sha }} --load jwt/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/jwt:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/jwt:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/jwt:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/jwt:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -597,31 +627,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/man:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/man:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/man:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/man:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -689,31 +724,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/sed:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/sed:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/sed:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/sed:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -781,31 +821,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/socat:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/socat:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/socat:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/socat:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
@@ -873,31 +918,36 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
       if: github.repository == 'hairyhenderson/dockerfiles'
+    - name: Install Trivy
+      uses: aquasecurity/setup-trivy@v0.2.2
+      with:
+        version: v0.57.0
+        cache: true
+    - name: Download Trivy DB
+      run: |
+        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
     - name: Run Trivy vulnerability scanner (table output)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/ssh:${{ github.sha }}'
-        format: 'table'
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format table \
+          --exit-code 1 \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --severity CRITICAL,HIGH \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/ssh:${{ github.sha }}
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'ghcr.io/hairyhenderson/ssh:${{ github.sha }}'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        # exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        # The SARIF format ignores severity and uploads all vulnerabilities for
-        # later triage. The table-format step above is used to fail the build if
-        # there are any critical or high vulnerabilities.
-        # See https://github.com/aquasecurity/trivy-action/issues/95
-        # severity: 'CRITICAL,HIGH'
-        trivyignores: .trivyignore
+      run: |
+        trivy image \
+          --scanners vuln \
+          --format sarif \
+          --output trivy-results.sarif \
+          --ignore-unfixed \
+          --pkg-types os,library \
+          --ignorefile .trivyignore \
+          --skip-db-update \
+          ghcr.io/hairyhenderson/ssh:${{ github.sha }}
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3

@@ -25,7 +25,7 @@ RUN rm -f /tmp/raspbian.public.key
 
 FROM scratch AS raspbian
 
-LABEL org.opencontainers.image.source https://github.com/hairyhenderson/dockerfiles
+LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
 COPY --from=build / /
 CMD ["bash"]
