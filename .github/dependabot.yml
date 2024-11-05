@@ -8,70 +8,17 @@ updates:
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
 - package-ecosystem: docker
-  directory: "/bashbrew"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/ci-builder"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/dockerfiles-builder"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/figlet"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/gomplate-ci-build"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/jwt"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/man"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/sed"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/socat"
-  schedule:
-    interval: daily
-    time: "02:00"
-    timezone: Canada/Eastern
-  open-pull-requests-limit: 10
-- package-ecosystem: docker
-  directory: "/ssh"
+  directories:
+    - "/bashbrew"
+    - "/ci-builder"
+    - "/dockerfiles-builder"
+    - "/figlet"
+    - "/gomplate-ci-build"
+    - "/jwt"
+    - "/man"
+    - "/sed"
+    - "/socat"
+    - "/ssh"
   schedule:
     interval: daily
     time: "02:00"
