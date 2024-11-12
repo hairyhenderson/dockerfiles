@@ -1,4 +1,4 @@
-FROM ghcr.io/hairyhenderson/gomplate:v4.1 AS gomplate
+FROM ghcr.io/hairyhenderson/gomplate:v4.2 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker:27.3 AS docker
 FROM docker/buildx-bin:0.18.0 AS buildx-plugin
