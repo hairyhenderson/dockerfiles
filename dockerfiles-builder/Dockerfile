@@ -4,7 +4,7 @@ FROM docker:27.3 AS docker
 FROM docker/buildx-bin:0.19.1 AS buildx-plugin
 FROM mikefarah/yq:4 AS yq
 
-FROM alpine:3.20 AS runtime
+FROM alpine:3.21 AS runtime
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
