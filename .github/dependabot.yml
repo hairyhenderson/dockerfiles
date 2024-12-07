@@ -13,6 +13,7 @@ updates:
     - "/ci-builder"
     - "/dockerfiles-builder"
     - "/figlet"
+    - "/freeciv"
     - "/gomplate-ci-build"
     - "/jwt"
     - "/man"

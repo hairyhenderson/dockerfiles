@@ -29,10 +29,10 @@ clean:
 	-@rm -f */image.iid */image.tag */image.scanned */image.pushed
 
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.* */Dockerfile
-	@gomplate -c dir=$(shell pwd) -f $< -o $@
+	@gomplate -c dir=$(shell pwd)/ -f $< -o $@
 
 .github/dependabot.yml: .github/dependabot.yml.tmpl */.ignore */Dockerfile
-	@gomplate -c dir=$(shell pwd) -f $< -o $@
+	@gomplate -c dir=$(shell pwd)/ -f $< -o $@
 
 gen: .github/workflows/build.yml .github/dependabot.yml
 
