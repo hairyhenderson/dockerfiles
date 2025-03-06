@@ -4,9 +4,13 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    time: "01:00"
-    timezone: Canada/Eastern
   open-pull-requests-limit: 10
+  commit-message:
+    prefix: deps(actions)
+  groups:
+    actions:
+      patterns:
+        - "actions/*"
 - package-ecosystem: docker
   directories:
 {{- range .dir }}{{ if and (and (file.IsDir .) (file.Exists (filepath.Join . "Dockerfile")) (not (strings.HasPrefix "." .))) (not (file.Exists (filepath.Join . ".ignore"))) }}
@@ -17,3 +21,9 @@ updates:
     time: "02:00"
     timezone: Canada/Eastern
   open-pull-requests-limit: 10
+  commit-message:
+    prefix: deps(actions)
+  groups:
+    docker:
+      patterns:
+        - "*"
