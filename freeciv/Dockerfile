@@ -10,5 +10,8 @@ RUN useradd -m freeciv
 
 USER freeciv
 WORKDIR /home/freeciv
+VOLUME /data
 
-ENTRYPOINT [ "/usr/games/freeciv-server" ]
+ENV FREECIV_SAVE_PATH=/data
+
+ENTRYPOINT [ "/usr/games/freeciv-server", "--saves=/data" ]
