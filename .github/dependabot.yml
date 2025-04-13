@@ -19,7 +19,6 @@ updates:
     - "/figlet"
     - "/freeciv"
     - "/gomplate-ci-build"
-    - "/jwt"
     - "/man"
     - "/sed"
     - "/socat"
