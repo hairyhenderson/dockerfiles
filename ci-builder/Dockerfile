@@ -1,9 +1,9 @@
-FROM hashicorp/vault:1.20.0 AS vault
-FROM hashicorp/consul:1.21.2 AS consul
+FROM hashicorp/vault:1.20.1 AS vault
+FROM hashicorp/consul:1.21.3 AS consul
 FROM docker:28.3 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.25.0 AS buildx-plugin
-FROM golangci/golangci-lint:v2.2.2-alpine AS golangci-lint
+FROM docker/buildx-bin:0.26.1 AS buildx-plugin
+FROM golangci/golangci-lint:v2.3.0-alpine AS golangci-lint
 
 FROM golang:1.24-alpine AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
