@@ -1,14 +1,14 @@
-FROM hashicorp/vault:1.20.0 AS vault
-FROM hashicorp/consul:1.21.2 AS consul
-FROM docker:28.3 AS docker
+FROM hashicorp/vault:1.20.3 AS vault
+FROM hashicorp/consul:1.21.4 AS consul
+FROM docker:28.4 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.25.0 AS buildx-plugin
-FROM golangci/golangci-lint:v2.2.2-alpine AS golangci-lint
+FROM docker/buildx-bin:0.28.0 AS buildx-plugin
+FROM golangci/golangci-lint:v2.4.0-alpine AS golangci-lint
 
-FROM golang:1.24 AS go-junit-report
+FROM golang:1.25 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.24 AS final
+FROM golang:1.25 AS final
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
