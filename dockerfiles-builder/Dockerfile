@@ -1,10 +1,10 @@
 FROM ghcr.io/hairyhenderson/gomplate:v4.3 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker:28.3 AS docker
-FROM docker/buildx-bin:0.25.0 AS buildx-plugin
+FROM docker:29.1 AS docker
+FROM docker/buildx-bin:0.30.1 AS buildx-plugin
 FROM mikefarah/yq:4 AS yq
 
-FROM alpine:3.22 AS runtime
+FROM alpine:3.23 AS runtime
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
