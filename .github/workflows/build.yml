@@ -20,14 +20,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -40,7 +40,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -76,14 +76,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -119,14 +119,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -139,7 +139,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/ci-builder:${{ github.sha }} --load ci-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -175,14 +175,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -218,14 +218,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -238,7 +238,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -274,14 +274,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -315,14 +315,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -335,7 +335,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -371,14 +371,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -412,14 +412,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -432,7 +432,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/freeciv:${{ github.sha }} --load freeciv/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -468,14 +468,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -511,14 +511,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -531,7 +531,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -567,14 +567,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -608,14 +608,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -628,7 +628,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -664,14 +664,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -705,14 +705,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -725,7 +725,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -761,14 +761,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -802,14 +802,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -822,7 +822,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -858,14 +858,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -899,14 +899,14 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.6.0
+      uses: docker/setup-qemu-action@v3.7.0
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v3.11.1
+      uses: docker/setup-buildx-action@v3.12.0
       with:
         version: v0.22.0
         driver-opts: |
@@ -919,7 +919,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -955,14 +955,14 @@ jobs:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.4.0
+      uses: docker/login-action@v3.6.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
