@@ -40,7 +40,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -139,7 +139,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/ci-builder:${{ github.sha }} --load ci-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -238,7 +238,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -335,7 +335,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -432,7 +432,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/freeciv:${{ github.sha }} --load freeciv/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -531,7 +531,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -628,7 +628,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -725,7 +725,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -822,7 +822,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
@@ -919,7 +919,7 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.3
+      uses: aquasecurity/setup-trivy@v0.2.4
       with:
         version: v0.61.0
         cache: true
