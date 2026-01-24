@@ -41,7 +41,7 @@ jobs:
       run: |
         mkdir -p ~/.docker
         echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Set up QEMU
@@ -63,7 +63,7 @@ jobs:
         {{- end }}
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.4
+      uses: aquasecurity/setup-trivy@v0.2.5
       with:
         version: v0.61.0
         cache: true
