@@ -1,7 +1,6 @@
 FROM hashicorp/vault:1.21.3 AS vault
 FROM hashicorp/consul:1.22.3 AS consul
 FROM docker:29.2 AS docker
-FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
 FROM docker/buildx-bin:0.31.1 AS buildx-plugin
 FROM golangci/golangci-lint:v2.8.0-alpine AS golangci-lint
 
@@ -32,4 +31,3 @@ COPY --from=consul /bin/consul /bin/consul
 COPY --from=docker /usr/local/bin/docker /bin/docker
 COPY --from=go-junit-report /go/bin/go-junit-report /bin/go-junit-report
 COPY --from=buildx-plugin /buildx /usr/libexec/docker/cli-plugins/docker-buildx
-COPY --from=bashbrew /bin/bashbrew /bin/bashbrew
