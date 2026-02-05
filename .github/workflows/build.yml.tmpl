@@ -16,6 +16,7 @@ jobs:
 {{ $notHidden := not (strings.HasPrefix "." .) -}}
 {{ $noIgnore := not (file.Exists (filepath.Join $dir ".ignore")) -}}
 {{ $hasNeeds := file.Exists (filepath.Join $dir ".needs") -}}
+{{ $noScan := file.Exists (filepath.Join $dir ".noscan") -}}
 {{ if and $isDir $hasDockerfile $notHidden $noIgnore }}
   {{- $tagargsfile := filepath.Join $dir ".tag-args"}}
   {{- $tagargs := jsonArray `[{"tags": ["latest"], "args": {}}]` }}
@@ -62,6 +63,7 @@ jobs:
         docker buildx build{{range $k, $v := $a.args}} --build-arg {{$k}}={{$v}}{{end}} --tag {{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }} --load {{ $dir }}/
         {{- end }}
       if: github.repository == 'hairyhenderson/dockerfiles'
+    {{- if not $noScan }}
     - name: Install Trivy
       uses: aquasecurity/setup-trivy@v0.2.5
       with:
@@ -98,15 +100,16 @@ jobs:
       with:
         sarif_file: 'trivy-results.sarif'
       if: always() && github.repository == 'hairyhenderson/dockerfiles'
+    {{- end }}
     - name: Login to GHCR
-      uses: docker/login-action@v3.6.0
+      uses: docker/login-action@v3.7.0
       with:
           registry: ghcr.io
           username: '{{ `${{ github.actor }}` }}'
           password: '{{ `${{ secrets.GHCR_TOKEN }}` }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v3.6.0
+      uses: docker/login-action@v3.7.0
       with:
           username: '{{ `${{ github.actor }}` }}'
           password: '{{ `${{ secrets.DOCKERHUB_TOKEN }}` }}'

@@ -21,7 +21,9 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 	docker push $(shell cat $<)
 	@echo "$(call dockerimage,$@)" > $@
 
-scan: $(patsubst %/Dockerfile,%/image.scanned,$(wildcard */Dockerfile))
+EXCLUDED := $(patsubst %/.noscan,%,$(wildcard */.noscan)) $(patsubst %/.ignore,%,$(wildcard */.ignore))
+SCANNABLE := $(filter-out $(EXCLUDED),$(patsubst %/Dockerfile,%,$(wildcard */Dockerfile)))
+scan: $(addsuffix /image.scanned,$(SCANNABLE))
 
 clean:
 	@rm -f .github/workflows/build.yml

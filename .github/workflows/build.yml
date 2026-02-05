@@ -39,42 +39,6 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
       if: github.repository == 'hairyhenderson/dockerfiles'
-    - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.5
-      with:
-        version: v0.61.0
-        cache: true
-    - name: Download Trivy DB
-      run: |
-        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
-    - name: Run Trivy vulnerability scanner (table output)
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format table \
-          --exit-code 1 \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --severity CRITICAL,HIGH \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}
-    - name: Run Trivy vulnerability scanner
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format sarif \
-          --output trivy-results.sarif \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --ignorefile .trivyignore \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/bashbrew:${{ github.sha }}
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v4
-      with:
-        sarif_file: 'trivy-results.sarif'
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
       uses: docker/login-action@v3.7.0
       with:
@@ -105,105 +69,6 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/bashbrew:latest \
           hairyhenderson/bashbrew:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
-  docker-build-ci-builder:
-    name: docker build ci-builder
-    needs:
-    - docker-build-bashbrew
-    runs-on: ubuntu-24.04
-    env:
-      DOCKER_BUILDKIT: 1
-      DOCKER_CLI_EXPERIMENTAL: enabled
-    steps:
-    - name: enable experimental mode
-      run: |
-        mkdir -p ~/.docker
-        echo '{"experimental": "enabled"}' > ~/.docker/config.json
-    - uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3.7.0
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@v3.12.0
-      with:
-        version: v0.22.0
-        driver-opts: |
-          image=moby/buildkit:buildx-stable-1
-          network=host
-    - name: Available platforms
-      run: echo ${{ steps.buildx.outputs.platforms }}
-    - name: Build (non-main branch)
-      run: |
-        docker buildx build --tag ghcr.io/hairyhenderson/ci-builder:${{ github.sha }} --load ci-builder/
-      if: github.repository == 'hairyhenderson/dockerfiles'
-    - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.5
-      with:
-        version: v0.61.0
-        cache: true
-    - name: Download Trivy DB
-      run: |
-        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
-    - name: Run Trivy vulnerability scanner (table output)
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format table \
-          --exit-code 1 \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --severity CRITICAL,HIGH \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}
-    - name: Run Trivy vulnerability scanner
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format sarif \
-          --output trivy-results.sarif \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --ignorefile .trivyignore \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v4
-      with:
-        sarif_file: 'trivy-results.sarif'
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: Login to GHCR
-      uses: docker/login-action@v3.7.0
-      with:
-          registry: ghcr.io
-          username: '${{ github.actor }}'
-          password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
-    - name: Login to DockerHub
-      uses: docker/login-action@v3.7.0
-      with:
-          username: '${{ github.actor }}'
-          password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
-    - name: Build & Push (main branch)
-      run: |
-        PLATFORMS=linux/amd64,linux/arm64
-
-        docker buildx build \
-          --platform $PLATFORMS \
-          --tag ghcr.io/hairyhenderson/ci-builder:${{ github.sha }} --push ci-builder/
-        docker buildx build \
-          --platform $PLATFORMS \
-          --tag hairyhenderson/ci-builder:${{ github.sha }} --push ci-builder/
-
-        docker buildx imagetools create \
-          -t ghcr.io/hairyhenderson/ci-builder:latest \
-          ghcr.io/hairyhenderson/ci-builder:${{ github.sha }}
-        docker buildx imagetools create \
-          -t hairyhenderson/ci-builder:latest \
-          hairyhenderson/ci-builder:${{ github.sha }}
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
@@ -237,42 +102,6 @@ jobs:
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
-    - name: Install Trivy
-      uses: aquasecurity/setup-trivy@v0.2.5
-      with:
-        version: v0.61.0
-        cache: true
-    - name: Download Trivy DB
-      run: |
-        trivy fs --no-progress --download-db-only --db-repository public.ecr.aws/aquasecurity/trivy-db
-    - name: Run Trivy vulnerability scanner (table output)
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format table \
-          --exit-code 1 \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --severity CRITICAL,HIGH \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
-    - name: Run Trivy vulnerability scanner
-      run: |
-        trivy image \
-          --scanners vuln \
-          --format sarif \
-          --output trivy-results.sarif \
-          --ignore-unfixed \
-          --pkg-types os,library \
-          --ignorefile .trivyignore \
-          --skip-db-update \
-          ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }}
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v4
-      with:
-        sarif_file: 'trivy-results.sarif'
-      if: always() && github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
       uses: docker/login-action@v3.7.0
       with:
@@ -500,8 +329,6 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
-    needs:
-    - docker-build-bashbrew
     runs-on: ubuntu-24.04
     env:
       DOCKER_BUILDKIT: 1
