@@ -2,12 +2,12 @@ FROM hashicorp/vault:1.21.3 AS vault
 FROM hashicorp/consul:1.22.3 AS consul
 FROM docker:29.2 AS docker
 FROM docker/buildx-bin:0.31.1 AS buildx-plugin
-FROM golangci/golangci-lint:v2.8.0-alpine AS golangci-lint
+FROM golangci/golangci-lint:v2.9.0-alpine AS golangci-lint
 
-FROM golang:1.25 AS go-junit-report
+FROM golang:1.26 AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.25 AS final
+FROM golang:1.26 AS final
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
