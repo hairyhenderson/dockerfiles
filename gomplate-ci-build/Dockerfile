@@ -1,7 +1,7 @@
-FROM hashicorp/vault:1.21.3 AS vault
-FROM hashicorp/consul:1.22.4 AS consul
+FROM hashicorp/vault:1.21.4 AS vault
+FROM hashicorp/consul:1.22.5 AS consul
 FROM docker:29.2 AS docker
-FROM docker/buildx-bin:0.31.1 AS buildx-plugin
+FROM docker/buildx-bin:0.32.1 AS buildx-plugin
 FROM golangci/golangci-lint:v2.10.1-alpine AS golangci-lint
 
 FROM golang:1.26 AS go-junit-report
