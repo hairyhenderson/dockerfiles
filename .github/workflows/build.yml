@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '42 2 * * 2'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   docker-build-bashbrew:
     name: docker build bashbrew
