@@ -1,2 +1,6 @@
 # docker, vault, buildx - stdlib vuln, fixed in Go 1.25.7
 CVE-2025-68121
+
+# irrelevant
+CVE-2026-24051
+CVE-2026-22184
