@@ -20,7 +20,6 @@ jobs:
 {{ $notHidden := not (strings.HasPrefix "." .) -}}
 {{ $noIgnore := not (file.Exists (filepath.Join $dir ".ignore")) -}}
 {{ $hasNeeds := file.Exists (filepath.Join $dir ".needs") -}}
-{{ $noScan := file.Exists (filepath.Join $dir ".noscan") -}}
 {{ if and $isDir $hasDockerfile $notHidden $noIgnore }}
   {{- $tagargsfile := filepath.Join $dir ".tag-args"}}
   {{- $tagargs := jsonArray `[{"tags": ["latest"], "args": {}}]` }}

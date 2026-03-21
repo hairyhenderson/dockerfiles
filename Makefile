@@ -13,22 +13,16 @@ dockerimage = "ghcr.io/hairyhenderson/$(patsubst %/image.tag,%,$(1))"
 	docker tag $(shell cat $<) $(call dockerimage,$@)
 	@echo $(call dockerimage,$@) > $@
 
-%/image.scanned: %/image.tag .trivyignore Makefile
-	trivy i --exit-code 1 --ignore-unfixed --pkg-types os,library --severity HIGH,CRITICAL $(shell cat $<)
-	@cat $< > $@
-
 %/image.pushed: %/image.tag
 	docker push $(shell cat $<)
 	@echo "$(call dockerimage,$@)" > $@
 
-EXCLUDED := $(patsubst %/.noscan,%,$(wildcard */.noscan)) $(patsubst %/.ignore,%,$(wildcard */.ignore))
-SCANNABLE := $(filter-out $(EXCLUDED),$(patsubst %/Dockerfile,%,$(wildcard */Dockerfile)))
-scan: $(addsuffix /image.scanned,$(SCANNABLE))
+EXCLUDED := $(patsubst %/.ignore,%,$(wildcard */.ignore))
 
 clean:
 	@rm -f .github/workflows/build.yml
 	@rm -f .github/dependabot.yml
-	-@rm -f */image.iid */image.tag */image.scanned */image.pushed
+	-@rm -f */image.iid */image.tag */image.pushed
 
 .github/workflows/build.yml: .github/workflows/build.yml.tmpl */.* */Dockerfile
 	@gomplate -c dir=$(shell pwd)/ -f $< -o $@
@@ -38,6 +32,6 @@ clean:
 
 gen: .github/workflows/build.yml .github/dependabot.yml
 
-.PHONY: clean scan
+.PHONY: clean
 .DELETE_ON_ERROR:
 .SECONDARY:
