@@ -44,14 +44,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -107,14 +107,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -168,14 +168,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -229,14 +229,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/freeciv:${{ github.sha }} --load freeciv/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -290,14 +290,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -351,14 +351,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -412,14 +412,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -473,14 +473,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
@@ -534,14 +534,14 @@ jobs:
         docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
       if: github.repository == 'hairyhenderson/dockerfiles'
     - name: Login to GHCR
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           registry: ghcr.io
           username: '${{ github.actor }}'
           password: '${{ secrets.GHCR_TOKEN }}'
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
-      uses: docker/login-action@v4.0.0
+      uses: docker/login-action@v4.1.0
       with:
           username: '${{ github.actor }}'
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
