@@ -1,5 +1,5 @@
 FROM hashicorp/vault:2.0.0 AS vault
-FROM hashicorp/consul:1.22.6 AS consul
+FROM hashicorp/consul:1.22.7 AS consul
 FROM docker:29.4 AS docker
 FROM docker/buildx-bin:0.33.0 AS buildx-plugin
 FROM golangci/golangci-lint:v2.11.4-alpine AS golangci-lint
