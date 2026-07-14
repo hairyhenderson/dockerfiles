@@ -1,7 +1,7 @@
-FROM ghcr.io/hairyhenderson/gomplate:v5.1.0 AS gomplate
+FROM ghcr.io/hairyhenderson/gomplate:v5.2.0 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker:29.5 AS docker
-FROM docker/buildx-bin:0.34.1 AS buildx-plugin
+FROM docker:29.6 AS docker
+FROM docker/buildx-bin:0.35.0 AS buildx-plugin
 FROM mikefarah/yq:4 AS yq
 
 FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS runtime
