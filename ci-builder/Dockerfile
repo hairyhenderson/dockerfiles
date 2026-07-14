@@ -1,4 +1,4 @@
-FROM hashicorp/vault:1.21.3 AS vault
+FROM hashicorp/vault:1.21.4@sha256:4e33b126a59c0c333b76fb4e894722462659a6bec7c48c9ee8cea56fccfd2569 AS vault
 FROM hashicorp/consul:1.22.7@sha256:a230dcea0bb107bd7958a912d1429fb7f9d399637de7ffb814b34412b9e8c543 AS consul
 FROM docker:29.2 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
