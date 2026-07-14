@@ -2,7 +2,7 @@ FROM hashicorp/vault:1.21.4@sha256:4e33b126a59c0c333b76fb4e894722462659a6bec7c48
 FROM hashicorp/consul:1.22.7@sha256:a230dcea0bb107bd7958a912d1429fb7f9d399637de7ffb814b34412b9e8c543 AS consul
 FROM docker:29.2 AS docker
 FROM ghcr.io/hairyhenderson/bashbrew:latest AS bashbrew
-FROM docker/buildx-bin:0.31.1 AS buildx-plugin
+FROM docker/buildx-bin:0.35.0@sha256:917570d8d0ae91ae49251f84f848a6801eedd114554c56a4fdf7ec88cac48eeb AS buildx-plugin
 FROM golangci/golangci-lint:v2.8.0-alpine AS golangci-lint
 
 FROM golang:1.25-alpine AS go-junit-report
