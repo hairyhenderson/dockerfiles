@@ -1,5 +1,5 @@
-FROM ghcr.io/hairyhenderson/gomplate:v5.1.0@sha256:23914375b491cbfb6620911200ff5ed31af200cd66484c833496fca1dfc97e74 AS gomplate
-FROM ghcr.io/hairyhenderson/bashbrew:latest@sha256:4467e8599148e0118345bf24b9e2c6d6ae56e964422acedd218a6f731fa0a816 AS bashbrew
+FROM ghcr.io/hairyhenderson/gomplate:v5.2.0@sha256:991ce1b8a1307fa32f9b8050a7b339697464664236cfddb1c4079df4aa5f1cd4 AS gomplate
+FROM ghcr.io/hairyhenderson/bashbrew:latest@sha256:903ef9120221eb18d9fa67d2f37b0bb9a2656135a8b84f45fbc2a66903b60c8e AS bashbrew
 FROM docker:29.6@sha256:66d292e5c26bd33a6f6f61cacb880de2186339a524ecba1ce098dbbaceed6515 AS docker
 FROM docker/buildx-bin:0.35.0@sha256:917570d8d0ae91ae49251f84f848a6801eedd114554c56a4fdf7ec88cac48eeb AS buildx-plugin
 FROM mikefarah/yq:4@sha256:11a1f0b604b13dbbdc662260d8db6f644b22d8553122a25c1b5b2e8713ca6977 AS yq
