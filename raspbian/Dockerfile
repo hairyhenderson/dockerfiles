@@ -1,4 +1,4 @@
-FROM debian:12 AS build
+FROM debian:12@sha256:9344f8b8992482f80cba753f323adeaf17690076c095ccff6cc9536be98185dc AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
