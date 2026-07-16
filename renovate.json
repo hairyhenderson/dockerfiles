@@ -8,6 +8,19 @@
   "semanticCommitType": "deps",
   "semanticCommitScope": "{{manager}}",
   "platformAutomerge": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update pinned GitHub Actions in the gomplate workflow template so the generated build.yml doesn't drift from its source",
+      "fileMatch": ["^\\.github/workflows/.+\\.tmpl$"],
+      "matchStrings": [
+        "uses:\\s+(?<depName>[^@\\s]+)@(?<currentDigest>[0-9a-f]{40})\\s*#\\s*(?<currentValue>\\S+)",
+        "uses:\\s+(?<depName>[^@\\s]+)@(?<currentValue>[^\\s#]+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "github-actions"
+    }
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
