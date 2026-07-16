@@ -1,4 +1,4 @@
-FROM ghcr.io/hairyhenderson/gomplate:v5.1.0@sha256:23914375b491cbfb6620911200ff5ed31af200cd66484c833496fca1dfc97e74 AS gomplate
+FROM ghcr.io/hairyhenderson/gomplate:v5.2.0@sha256:991ce1b8a1307fa32f9b8050a7b339697464664236cfddb1c4079df4aa5f1cd4 AS gomplate
 FROM ghcr.io/hairyhenderson/bashbrew:latest@sha256:1628f1bc3d960d7bb9364ca6d5e6d5918a4b985445d95bb505d90e0a6a3fce9d AS bashbrew
 FROM docker:29.6@sha256:66d292e5c26bd33a6f6f61cacb880de2186339a524ecba1ce098dbbaceed6515 AS docker
 FROM docker/buildx-bin:0.35.0@sha256:917570d8d0ae91ae49251f84f848a6801eedd114554c56a4fdf7ec88cac48eeb AS buildx-plugin
