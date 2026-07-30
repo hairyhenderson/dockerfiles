@@ -1,7 +1,7 @@
 FROM ghcr.io/hairyhenderson/gomplate:v5.2.0@sha256:991ce1b8a1307fa32f9b8050a7b339697464664236cfddb1c4079df4aa5f1cd4 AS gomplate
-FROM ghcr.io/hairyhenderson/bashbrew:latest@sha256:1c32197db10d4451c2fc5cbd6a6df2f1004b4860f414f39fb4919964bc4edbe6 AS bashbrew
-FROM docker:29.6@sha256:66d292e5c26bd33a6f6f61cacb880de2186339a524ecba1ce098dbbaceed6515 AS docker
-FROM docker/buildx-bin:0.35.0@sha256:917570d8d0ae91ae49251f84f848a6801eedd114554c56a4fdf7ec88cac48eeb AS buildx-plugin
+FROM ghcr.io/hairyhenderson/bashbrew:latest@sha256:4508c36b44c2158b4253212232e035dd43172633e2eb6c3dbbdbc662cf5487d9 AS bashbrew
+FROM docker:29.6@sha256:bfec1f5159c63a81ca6fdedbd81404d2c0e16378ed0feec3bb3fbf3998847659 AS docker
+FROM docker/buildx-bin:0.36.0@sha256:a7622548b38cb1826781a466e3f227476e85ab50b8009170b63d4f17bd4b3bc6 AS buildx-plugin
 FROM mikefarah/yq:4@sha256:11a1f0b604b13dbbdc662260d8db6f644b22d8553122a25c1b5b2e8713ca6977 AS yq
 
 FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b AS runtime
