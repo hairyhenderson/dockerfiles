@@ -25,7 +25,7 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
       "minimumReleaseAge": "7 days",
       "automerge": true
     }
