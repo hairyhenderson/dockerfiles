@@ -4,10 +4,10 @@ FROM docker:29.8@sha256:5efed980cba3fc126cf54e21a5a6ff8849d05b6e0623d6e7612f48e9
 FROM docker/buildx-bin:0.37.0@sha256:1387e0aa2b756894e8b6ee10d0f80904cb0badc4356a29e7843b230d0b8fd48f AS buildx-plugin
 FROM golangci/golangci-lint:v2.13.2-alpine@sha256:da1f79b184ff1d98781648407d05a99b9cba7b282aa3416b0a0eac102a3b0557 AS golangci-lint
 
-FROM golang:1.27@sha256:512690a5660563b57d37ecc31129e7f136e831db2aed24a1dbeb8ad7380dc0fa AS go-junit-report
+FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84ea18c43ea AS go-junit-report
 RUN go install github.com/jstemmer/go-junit-report@latest
 
-FROM golang:1.27@sha256:512690a5660563b57d37ecc31129e7f136e831db2aed24a1dbeb8ad7380dc0fa AS final
+FROM golang:1.27@sha256:f44f6e88636cfb311f9ebace870ded69d943f227bb3cb27d32ffd84ea18c43ea AS final
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
