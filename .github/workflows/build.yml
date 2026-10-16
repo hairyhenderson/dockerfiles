@@ -15,7 +15,7 @@ concurrency:
 jobs:
   docker-build-bashbrew:
     name: docker build bashbrew
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -78,7 +78,7 @@ jobs:
     name: docker build dockerfiles-builder
     needs:
     - docker-build-bashbrew
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -139,7 +139,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-figlet:
     name: docker build figlet
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -200,7 +200,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-freeciv:
     name: docker build freeciv
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -261,7 +261,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -322,7 +322,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-man:
     name: docker build man
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -383,7 +383,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-sed:
     name: docker build sed
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -444,7 +444,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-socat:
     name: docker build socat
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -505,7 +505,7 @@ jobs:
       if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
   docker-build-ssh:
     name: docker build ssh
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
