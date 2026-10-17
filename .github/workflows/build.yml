@@ -42,7 +42,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/bashbrew:${{ github.sha }} --load bashbrew/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -105,7 +105,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/dockerfiles-builder:${{ github.sha }} --load dockerfiles-builder/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -166,7 +166,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/figlet:${{ github.sha }} --load figlet/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -227,7 +227,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/freeciv:${{ github.sha }} --load freeciv/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -288,7 +288,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/gomplate-ci-build:${{ github.sha }} --load gomplate-ci-build/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -349,7 +349,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/man:${{ github.sha }} --load man/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -410,7 +410,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/sed:${{ github.sha }} --load sed/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -471,7 +471,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/socat:${{ github.sha }} --load socat/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
@@ -532,7 +532,7 @@ jobs:
     - name: Build (non-main branch)
       run: |
         docker buildx build --tag ghcr.io/hairyhenderson/ssh:${{ github.sha }} --load ssh/
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
