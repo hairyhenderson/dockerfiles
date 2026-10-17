@@ -36,7 +36,7 @@ jobs:
     - docker-build-{{ $n }}
     {{- end }}
     {{- end }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       DOCKER_BUILDKIT: 1
       DOCKER_CLI_EXPERIMENTAL: enabled
@@ -54,7 +54,7 @@ jobs:
       id: buildx
       uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
       with:
-        version: v0.35.0
+        version: v0.38.0
         driver-opts: |
           image=moby/buildkit:buildx-stable-1
           network=host
@@ -65,7 +65,7 @@ jobs:
         {{- range $a := $tagargs }}
         docker buildx build{{range $k, $v := $a.args}} --build-arg {{$k}}={{$v}}{{end}} --tag {{ $ghcrns }}/{{ $dir }}:{{ `${{ github.sha }}` }} --load {{ $dir }}/
         {{- end }}
-      if: github.repository == 'hairyhenderson/dockerfiles'
+      if: github.repository == 'hairyhenderson/dockerfiles' && github.ref != 'refs/heads/main'
     - name: Login to GHCR
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
