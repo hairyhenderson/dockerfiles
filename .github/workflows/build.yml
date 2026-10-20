@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
   schedule:
     - cron: '42 2 * * 2'
 
@@ -47,15 +48,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -73,7 +74,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/bashbrew:latest \
           hairyhenderson/bashbrew:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-dockerfiles-builder:
     name: docker build dockerfiles-builder
     needs:
@@ -110,15 +111,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64
@@ -136,7 +137,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/dockerfiles-builder:latest \
           hairyhenderson/dockerfiles-builder:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-figlet:
     name: docker build figlet
     runs-on: ubuntu-26.04
@@ -171,15 +172,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -197,7 +198,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/figlet:latest \
           hairyhenderson/figlet:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-freeciv:
     name: docker build freeciv
     runs-on: ubuntu-26.04
@@ -232,15 +233,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64
@@ -258,7 +259,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/freeciv:latest \
           hairyhenderson/freeciv:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-gomplate-ci-build:
     name: docker build gomplate-ci-build
     runs-on: ubuntu-26.04
@@ -293,15 +294,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64
@@ -319,7 +320,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/gomplate-ci-build:latest \
           hairyhenderson/gomplate-ci-build:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-man:
     name: docker build man
     runs-on: ubuntu-26.04
@@ -354,15 +355,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -380,7 +381,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/man:latest \
           hairyhenderson/man:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-sed:
     name: docker build sed
     runs-on: ubuntu-26.04
@@ -415,15 +416,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -441,7 +442,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/sed:latest \
           hairyhenderson/sed:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-socat:
     name: docker build socat
     runs-on: ubuntu-26.04
@@ -476,15 +477,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -502,7 +503,7 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/socat:latest \
           hairyhenderson/socat:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
   docker-build-ssh:
     name: docker build ssh
     runs-on: ubuntu-26.04
@@ -537,15 +538,15 @@ jobs:
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
           registry: ghcr.io
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.GHCR_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Login to DockerHub
       uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
       with:
-          username: '${{ github.actor }}'
+          username: hairyhenderson
           password: '${{ secrets.DOCKERHUB_TOKEN }}'
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
     - name: Build & Push (main branch)
       run: |
         PLATFORMS=linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
@@ -563,4 +564,4 @@ jobs:
         docker buildx imagetools create \
           -t hairyhenderson/ssh:latest \
           hairyhenderson/ssh:${{ github.sha }}
-      if: github.repository == 'hairyhenderson/dockerfiles' && github.actor == 'hairyhenderson' && github.ref == 'refs/heads/main'
+      if: github.repository == 'hairyhenderson/dockerfiles' && (github.actor == 'hairyhenderson' || github.actor == 'renovate[bot]') && github.ref == 'refs/heads/main'
