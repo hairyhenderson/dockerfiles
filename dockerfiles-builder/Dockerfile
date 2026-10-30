@@ -4,7 +4,7 @@ FROM docker:29.9@sha256:9e79b879b177fbd72c34376a3dd3d91747da5db49e1f560f76aea595
 FROM docker/buildx-bin:0.38.1@sha256:0b7d9e66e81dd1155639421b8342f9731f8bb67cb11b58663f938d9c6e9b6eef AS buildx-plugin
 FROM mikefarah/yq:4@sha256:4b3d9475d65571d28cbb19544d3820ec2945e4c8b2f18279394282b8dc3a592e AS yq
 
-FROM alpine:3.24@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6 AS runtime
+FROM alpine:3.24@sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a AS runtime
 
 LABEL org.opencontainers.image.source=https://github.com/hairyhenderson/dockerfiles
 
