@@ -1,4 +1,4 @@
-FROM debian:13@sha256:4c25275446ca371766b8b093c696782eabce06263fccacb8d5d813b3dc44b308 AS build
+FROM debian:13@sha256:2dc419c6d7fe3dad0a2f9fd469c34cc90b0f9ba642d8fde837fe3d7d34a0e7f1 AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
