@@ -28,6 +28,13 @@
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "minimumReleaseAge": "7 days",
       "automerge": true
+    },
+    {
+      "description": "Indirect Go deps take their major version from the module that imports them, so a major bump in our go.mod can't work",
+      "matchManagers": ["gomod"],
+      "matchDepTypes": ["indirect"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ]
 }
